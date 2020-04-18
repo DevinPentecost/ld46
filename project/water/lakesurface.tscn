@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://water/lakesurface.gd" type="Script" id=1]
 [ext_resource path="res://water/noiseTexture.png" type="Texture" id=2]
@@ -24,9 +24,16 @@ uniform float disturb_freq = 3.0;
 varying float height;
 
 void fragment() {
-	float fresnel_approx = sqrt(1.0 - dot(NORMAL, VIEW));
-	vec3 base_albedo = texture(refl_tx, vec2(1.0 - SCREEN_UV.x, SCREEN_UV.y)).rgb * (1.0 * fresnel_approx);
+	// blur base texture
+	vec3 base_sample = texture(refl_tx, vec2(1.0 - SCREEN_UV.x, SCREEN_UV.y)).rgb;
+	vec2 offset = texture(noise_tx, vec2(1.0 - SCREEN_UV.x, SCREEN_UV.y)).gb;
+	vec3 second_sample = texture(refl_tx, mix(vec2(1.0 - SCREEN_UV.x, SCREEN_UV.y), offset, 0.5)).rgb;
+	vec3 sample = mix(base_sample, second_sample, 3.0 * sin(TIME * time_factor.x));
 	
+	float fresnel_approx = sqrt(1.0 - dot(NORMAL, VIEW));
+	vec3 base_albedo = sample * (1.0 * fresnel_approx);
+	
+	// make high water appear as flat white
 	float cap = step(0.05, height); // a > b[i] ? 0.0 : 1.0
 	ALBEDO = mix(base_albedo, vec3(1.0, 1.0, 1.0), cap);
 	RIM = 0.2;
@@ -93,6 +100,9 @@ size = Vector2( 10, 30 )
 subdivide_width = 64
 subdivide_depth = 64
 
+[sub_resource type="Environment" id=5]
+background_mode = 2
+
 [node name="lakesurface" type="Spatial"]
 
 [node name="MeshInstance" type="MeshInstance" parent="."]
@@ -113,3 +123,4 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.59425, 0 )
 
 [node name="RealCamera" type="Camera" parent="."]
 transform = Transform( 1, 0, 0, 0, 0.857886, 0.513841, 0, -0.513841, 0.857886, -1.58412, 4.92431, 7.17466 )
+environment = SubResource( 5 )
