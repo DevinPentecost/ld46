@@ -4,3 +4,4 @@ builds/linux/
 builds/html5/
 builds/windows/
 builds/android/
+*.blend1

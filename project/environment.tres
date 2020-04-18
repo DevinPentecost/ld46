@@ -1,0 +1,22 @@
+[gd_resource type="Environment" load_steps=3 format=2]
+
+[ext_resource path="res://scene/TychoSkymapII.t5_04096x02048.png" type="Texture" id=1]
+
+[sub_resource type="PanoramaSky" id=1]
+panorama = ExtResource( 1 )
+
+[resource]
+background_mode = 2
+background_sky = SubResource( 1 )
+background_color = Color( 0.0745098, 0.0666667, 0.113725, 1 )
+background_energy = 1.41
+ambient_light_color = Color( 0.101961, 0.45098, 0.898039, 1 )
+ambient_light_energy = 5.68
+ambient_light_sky_contribution = 0.88
+fog_enabled = true
+fog_color = Color( 0, 0, 0, 1 )
+fog_sun_color = Color( 0.607843, 0.607843, 0.607843, 1 )
+fog_sun_amount = 0.23
+fog_depth_begin = 28.3
+fog_depth_curve = 1.51572
+fog_transmit_enabled = true
