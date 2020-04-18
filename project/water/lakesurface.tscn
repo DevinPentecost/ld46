@@ -1,0 +1,44 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://water/lakesurface.gd" type="Script" id=1]
+
+[sub_resource type="Shader" id=4]
+code = "shader_type spatial;
+render_mode unshaded;
+
+uniform sampler2D noise_tx;
+
+void fragment() {
+	ALBEDO = texture(refl_tx, vec2(1.0 - SCREEN_UV.x, SCREEN_UV.y)).rgb;
+}"
+
+[sub_resource type="ShaderMaterial" id=5]
+resource_local_to_scene = true
+shader = SubResource( 4 )
+
+[sub_resource type="PlaneMesh" id=3]
+material = SubResource( 5 )
+size = Vector2( 10, 10 )
+subdivide_width = 64
+subdivide_depth = 64
+
+[node name="lakesurface" type="Spatial"]
+
+[node name="MeshInstance" type="MeshInstance" parent="."]
+cast_shadow = 0
+mesh = SubResource( 3 )
+material/0 = null
+script = ExtResource( 1 )
+
+[node name="Viewport" type="Viewport" parent="MeshInstance"]
+size = Vector2( 64, 64 )
+
+[node name="Camera" type="Camera" parent="MeshInstance/Viewport"]
+transform = Transform( 1, 0, 0, 0, 0.896741, -0.442555, 0, 0.442555, 0.896741, 0.857219, 4.31637, 0.630562 )
+current = true
+
+[node name="DummyCam" type="Spatial" parent="MeshInstance"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.59425, 0 )
+
+[node name="RealCamera" type="Camera" parent="."]
+transform = Transform( 1, 0, 0, 0, 0.942478, 0.334268, 0, -0.334268, 0.942478, -1.61895, 3.16006, 9.10892 )
