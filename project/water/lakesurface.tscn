@@ -96,7 +96,7 @@ shader_param/noise_tx = ExtResource( 2 )
 [sub_resource type="PlaneMesh" id=4]
 resource_local_to_scene = true
 material = SubResource( 3 )
-size = Vector2( 10, 30 )
+size = Vector2( 30, 15 )
 subdivide_width = 64
 subdivide_depth = 64
 
