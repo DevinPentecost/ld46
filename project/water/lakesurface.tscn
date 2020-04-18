@@ -27,8 +27,8 @@ void fragment() {
 	float fresnel_approx = sqrt(1.0 - dot(NORMAL, VIEW));
 	vec3 base_albedo = texture(refl_tx, vec2(1.0 - SCREEN_UV.x, SCREEN_UV.y)).rgb * (1.0 * fresnel_approx);
 	
-	float hmod = step(0.3, height * 10.0);
-	ALBEDO = mix(vec3(1.0, 1.0, 1.0), base_albedo, hmod);
+	float cap = step(0.05, height); // a > b[i] ? 0.0 : 1.0
+	ALBEDO = mix(base_albedo, vec3(1.0, 1.0, 1.0), cap);
 	RIM = 0.2;
 	ROUGHNESS = 0.2 * (1.0 - fresnel_approx);
 	METALLIC = 0.0;
