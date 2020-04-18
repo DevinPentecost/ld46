@@ -21,9 +21,14 @@ uniform vec2 disturb_location = vec2(0.0, 0.0);
 uniform float disturb_magnitude = 5.2;
 uniform float disturb_freq = 3.0;
 
+varying float height;
+
 void fragment() {
 	float fresnel_approx = sqrt(1.0 - dot(NORMAL, VIEW));
-	ALBEDO = texture(refl_tx, vec2(1.0 - SCREEN_UV.x, SCREEN_UV.y)).rgb * (1.0 * fresnel_approx);
+	vec3 base_albedo = texture(refl_tx, vec2(1.0 - SCREEN_UV.x, SCREEN_UV.y)).rgb * (1.0 * fresnel_approx);
+	
+	float hmod = step(0.3, height * 10.0);
+	ALBEDO = mix(vec3(1.0, 1.0, 1.0), base_albedo, hmod);
 	RIM = 0.2;
 	ROUGHNESS = 0.2 * (1.0 - fresnel_approx);
 	METALLIC = 0.0;
@@ -45,7 +50,7 @@ float disturbance_height(vec2 pos, vec2 world_pos, float time) {
 }
 
 // This the total height of the water, given uv pos and time variable
-float height(vec2 pos, vec2 world_pos, float time) {
+float find_height(vec2 pos, vec2 world_pos, float time) {
 	// Smooth sine waves
 	float waves = (wave_amp.x * sin(pos.x * wave_freq.x + time * time_factor.x)) + (wave_amp.y * sin(pos.y * wave_freq.y  + time * time_factor.y));
 	// Some tiling noise to break it up a bit
@@ -58,11 +63,11 @@ float height(vec2 pos, vec2 world_pos, float time) {
 
 void vertex() {
 	vec2 wrld = (CAMERA_MATRIX * vec4(VERTEX, 1.0)).xz;
+	height = find_height(VERTEX.xz, wrld, TIME);
+	VERTEX.y += height;
 	
-	VERTEX.y += height(VERTEX.xz, wrld, TIME);
-	
-	TANGENT = normalize(vec3(0.0, height(VERTEX.xz + vec2(0.0, 0.2), wrld + vec2(0.0, 0.2), TIME) - height(VERTEX.xz + vec2(0.0, -0.2), wrld + vec2(0.0, -0.2), TIME), 0.4));
-	BINORMAL = normalize(vec3(0.4, height(VERTEX.xz + vec2(0.2, 0.0), wrld + vec2(0.2, 0.0), TIME) - height(VERTEX.xz + vec2(-0.2, 0.0), wrld + + vec2(-0.2, 0.0), TIME), 0.0));
+	TANGENT = normalize(vec3(0.0, find_height(VERTEX.xz + vec2(0.0, 0.2), wrld + vec2(0.0, 0.2), TIME) - find_height(VERTEX.xz + vec2(0.0, -0.2), wrld + vec2(0.0, -0.2), TIME), 0.4));
+	BINORMAL = normalize(vec3(0.4, find_height(VERTEX.xz + vec2(0.2, 0.0), wrld + vec2(0.2, 0.0), TIME) - find_height(VERTEX.xz + vec2(-0.2, 0.0), wrld + + vec2(-0.2, 0.0), TIME), 0.0));
 	NORMAL = cross(TANGENT, BINORMAL);
 }"
 
@@ -84,7 +89,7 @@ shader_param/noise_tx = ExtResource( 2 )
 [sub_resource type="PlaneMesh" id=4]
 resource_local_to_scene = true
 material = SubResource( 3 )
-size = Vector2( 10, 10 )
+size = Vector2( 10, 30 )
 subdivide_width = 64
 subdivide_depth = 64
 
