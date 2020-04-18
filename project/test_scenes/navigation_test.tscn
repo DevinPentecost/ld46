@@ -271,10 +271,10 @@ material/10 = null
 [node name="FireLight" type="OmniLight" parent="Campfire_01"]
 transform = Transform( 0.711131, 0, -0.70306, 0, 1, 0, 0.70306, 0, 0.711131, 0.326896, 2.01922, -0.500452 )
 light_color = Color( 0.607843, 0.447059, 0.105882, 1 )
-light_energy = 0.509658
+light_energy = 0.552379
 light_specular = 0.55
 shadow_enabled = true
-omni_range = 6.95536
+omni_range = 7.20561
 omni_attenuation = 0.615576
 script = SubResource( 4 )
 
