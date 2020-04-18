@@ -1,22 +1,55 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://water/lakesurface.gd" type="Script" id=1]
+[ext_resource path="res://water/noiseTexture.png" type="Texture" id=2]
 
 [sub_resource type="Shader" id=4]
+resource_local_to_scene = true
 code = "shader_type spatial;
 render_mode unshaded;
 
+uniform sampler2D refl_tx;
 uniform sampler2D noise_tx;
 
+uniform vec2 wave_amp = vec2(0.04, 0.05);
+uniform vec2 wave_freq = vec2(1.0, 2.5);
+uniform vec2 time_factor = vec2(2.0, 3.0);
+
 void fragment() {
-	ALBEDO = texture(refl_tx, vec2(1.0 - SCREEN_UV.x, SCREEN_UV.y)).rgb;
+	float fresnel_approx = sqrt(1.0 - dot(NORMAL, VIEW));
+	ALBEDO = texture(refl_tx, vec2(1.0 - SCREEN_UV.x, SCREEN_UV.y)).rgb * (1.0 * fresnel_approx);
+	RIM = 0.2;
+	ROUGHNESS = 0.2 * (1.0 - fresnel_approx);
+	METALLIC = 0.0;
+}
+
+float height(vec2 pos, float time) {
+	float waves = (wave_amp.x * sin(pos.x * wave_freq.x + time * time_factor.x)) + (wave_amp.y * sin(pos.y * wave_freq.y  + time * time_factor.y));
+	return texture(noise_tx, pos / 10.0).x * waves;
+}
+
+void vertex() {
+	VERTEX.y += height(VERTEX.xz, TIME);
+	
+	TANGENT = normalize(vec3(0.0, height(VERTEX.xz + vec2(0.0, 0.2), TIME) - height(VERTEX.xz + vec2(0.0, -0.2), TIME), 0.4));
+	BINORMAL = normalize(vec3(0.4, height(VERTEX.xz + vec2(0.2, 0.0), TIME) - height(VERTEX.xz + vec2(-0.2, 0.0), TIME), 0.0));
+	NORMAL = cross(TANGENT, BINORMAL);
 }"
+
+[sub_resource type="ViewportTexture" id=6]
+viewport_path = NodePath("MeshInstance/Viewport")
 
 [sub_resource type="ShaderMaterial" id=5]
 resource_local_to_scene = true
 shader = SubResource( 4 )
+shader_param/wave_amp = Vector2( 0.04, 0.05 )
+shader_param/wave_freq = Vector2( 1, 2.5 )
+shader_param/time_factor = Vector2( 2, 3 )
+shader_param/refl_tx = SubResource( 6 )
+shader_param/noise_tx = ExtResource( 2 )
 
 [sub_resource type="PlaneMesh" id=3]
+resource_local_to_scene = true
 material = SubResource( 5 )
 size = Vector2( 10, 10 )
 subdivide_width = 64
@@ -25,10 +58,10 @@ subdivide_depth = 64
 [node name="lakesurface" type="Spatial"]
 
 [node name="MeshInstance" type="MeshInstance" parent="."]
-cast_shadow = 0
 mesh = SubResource( 3 )
 material/0 = null
 script = ExtResource( 1 )
+real_camera = NodePath("../RealCamera")
 
 [node name="Viewport" type="Viewport" parent="MeshInstance"]
 size = Vector2( 64, 64 )
@@ -41,4 +74,4 @@ current = true
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.59425, 0 )
 
 [node name="RealCamera" type="Camera" parent="."]
-transform = Transform( 1, 0, 0, 0, 0.942478, 0.334268, 0, -0.334268, 0.942478, -1.61895, 3.16006, 9.10892 )
+transform = Transform( 1, 0, 0, 0, 0.857886, 0.513841, 0, -0.513841, 0.857886, -1.58412, 4.92431, 7.17466 )

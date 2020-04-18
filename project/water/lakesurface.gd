@@ -1,4 +1,3 @@
-tool
 extends MeshInstance
 
 onready var dummy_cam = $DummyCam
@@ -6,10 +5,14 @@ onready var mirror_cam = $Viewport/Camera
 
 export(NodePath) var real_camera
 
+# If you don't see a reflection when you run the scene,
+# it's because the mesh instance, material, etc need to all
+# be set as resource/local to scene = True.
+
 func _ready():
 	var display_width = ProjectSettings.get_setting("display/window/size/width")
 	var display_height = ProjectSettings.get_setting("display/window/size/height")
-	$Viewport.size = Vector2(display_width, display_height)
+	$Viewport.size = Vector2(display_width / 2, display_height / 2)
 
 func _process(_delta):
 	# Find the active / real camera
