@@ -16,6 +16,7 @@ _global_script_class_icons={
 [application]
 
 config/name="LD46"
+run/main_scene="res://test_scenes/navigation_test.tscn"
 config/icon="res://icon.png"
 
 [rendering]

@@ -1,0 +1,296 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://mesh/Tree_01.obj" type="ArrayMesh" id=1]
+[ext_resource path="res://mesh/Tent_01.obj" type="ArrayMesh" id=2]
+[ext_resource path="res://mesh/Campfire_01.obj" type="ArrayMesh" id=3]
+
+[sub_resource type="GDScript" id=1]
+script/source = "extends Navigation
+
+# Player Walking Speed
+const SPEED = 4.0
+
+#Navigation Points
+var navigation_begin = Vector3()
+var navigation_end = Vector3()
+
+#Line Drawing Material
+var line_material = SpatialMaterial.new()
+
+#Navigation Path
+var path = []
+var draw_path = true
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	
+	#Process user input
+	set_process_input(true)
+	
+	#Set up the material for the line
+	line_material.flags_unshaded = true
+	line_material.flags_use_point_size = true
+	line_material.albedo_color = Color.antiquewhite
+
+func _process(delta):
+	
+	#Is there anything left of the path?
+	if path.size() > 1:
+		
+		#Distance to walk
+		var walk_distance = delta * SPEED
+		
+		#Direction to look
+		var look_direction = Vector3.UP
+		
+		#While we still have a distance left to walk...
+		while walk_distance > 0 and path.size() >= 2:
+			
+			#Where to start on this segment of the path
+			var path_start = path[path.size()-1]
+			var path_end = path[path.size()-2]
+			
+			#What direction are we walking?
+			look_direction = (path_end - path_start).normalized()
+			
+			#What is the distance of this segment
+			var segment_length = path_start.distance_to(path_end)
+			
+			#Are we stepping so far we skip the segment?
+			if segment_length <= walk_distance:
+				#We need to shorten the walk distance and move to the next segment
+				path.remove(path.size()-1)
+				walk_distance -= segment_length
+			else:
+				#Move the starting point to be the end of the step
+				path[path.size()-1] = path_start.linear_interpolate(path_end, walk_distance/segment_length)
+				break;
+			
+		#Get the character's position on the path
+		var character_position = path[path.size()-1]
+		
+		#Make sure the direction we're facing does not adjust in the Y axis
+		look_direction.y = 0
+		
+		var character_transform = Transform()
+		character_transform.origin = character_position
+		character_transform = character_transform.looking_at(character_position + look_direction, Vector3.UP)
+		get_node(\"Character\").set_transform(character_transform)
+	
+		if path.size() < 2:
+			path = []
+			set_process(false)
+		
+	else:
+		#Nothing left to do until the next point is clicked!
+		set_process(false)
+
+func _input(event):
+	
+	#Poll for left click input
+	if event is InputEventMouseButton and event.button_index == BUTTON_LEFT and event.pressed:
+		
+		#Grab the starting point for the click (at the camera itself)
+		var from_point = get_node(\"Camera\").project_ray_origin(event.position)
+		var to_point = from_point + get_node(\"Camera\").project_ray_normal(event.position) * 100
+		
+		navigation_begin = get_closest_point(get_node(\"Character\").get_translation())
+		navigation_end = get_closest_point_to_segment(from_point, to_point)
+		_update_path()
+
+func _update_path():
+	
+	#Get the path out of this navigation
+	path = Array(get_simple_path(navigation_begin, navigation_end, true))
+	path.invert()
+	
+	set_process(true)
+	
+	#Draw the path that we are navigating
+	if draw_path:
+		var line_draw = get_node(\"ImmediateGeometry\")
+		line_draw.set_material_override(line_material)
+		line_draw.clear()
+		
+		#Begin drawing the line verticies
+		line_draw.begin(Mesh.PRIMITIVE_POINTS)
+		line_draw.add_vertex(navigation_begin)
+		line_draw.add_vertex(navigation_end)
+		line_draw.end()
+		
+		#Begin drawing the line itself
+		line_draw.begin(Mesh.PRIMITIVE_LINES)
+		
+		#Go over each point in the path
+		for point in path:
+			#Add a vertex to the line
+			line_draw.add_vertex(point)
+		line_draw.end()
+"
+
+[sub_resource type="CapsuleMesh" id=2]
+radius = 0.25
+
+[sub_resource type="NavigationMesh" id=3]
+vertices = PoolVector3Array( -3.85362, 0.318805, -1.03639, 1.24638, 0.318805, -1.63639, 1.24638, 0.318805, -3.73639, 1.24638, 0.318805, -3.73639, 2.44638, 0.318805, -4.03639, 2.44638, 0.318805, -9.43639, -9.55362, 0.318805, 1.36361, -6.85362, 0.318805, 1.36361, -3.85362, 0.318805, -1.03639, -9.55362, 0.318805, -9.43639, -9.55362, 0.318805, 1.36361, -3.85362, 0.318805, -1.03639, 1.24638, 0.318805, -3.73639, 2.44638, 0.318805, -9.43639, 2.44638, 0.318805, -9.43639, 2.44638, 0.318805, -4.03639, 3.64638, 0.318805, -4.03639, 3.64638, 0.318805, -4.03639, 3.94638, 0.318805, -2.53639, 9.64638, 0.318805, -2.53639, 3.64638, 0.318805, -4.03639, 9.64638, 0.318805, -2.53639, 9.64638, 0.318805, -9.43639, 2.44638, 0.318805, -9.43639, 3.94638, 0.318805, -1.33639, 2.74638, 0.318805, -1.03639, 2.74638, 0.318805, 4.06361, 9.64638, 0.318805, 4.06361, 9.64638, 0.318805, -2.53639, 9.64638, 0.318805, -2.53639, 3.94638, 0.318805, -2.53639, 3.94638, 0.318805, -1.33639, 2.14638, 0.318805, 3.46361, 2.44638, 0.318805, 4.06361, 2.74638, 0.318805, 4.06361, 2.74638, 0.318805, -1.03639, 1.54638, 0.318805, -1.03639, 1.24638, 0.318805, -1.63639, -3.85362, 0.318805, -1.03639, -1.45362, 0.318805, 1.06361, 1.54638, 0.318805, -1.03639, 0.646378, 0.318805, 5.26361, 0.646378, 0.318805, 3.76361, -1.45362, 0.318805, 1.96361, 2.14638, 0.318805, 3.46361, 1.54638, 0.318805, -1.03639, -1.45362, 0.318805, 1.06361, -1.45362, 0.318805, 1.96361, 0.646378, 0.318805, 3.76361, 1.54638, 0.318805, 9.46361, 1.54638, 0.318805, 5.56361, 0.646378, 0.318805, 5.26361, 0.646378, 0.318805, 5.26361, -1.45362, 0.318805, 1.96361, -4.15362, 0.318805, 4.06361, -4.15362, 0.318805, 9.46361, 1.54638, 0.318805, 9.46361, -6.85362, 0.318805, 1.96361, -6.85362, 0.318805, 1.36361, -9.55362, 0.318805, 1.36361, -4.15362, 0.318805, 4.06361, -6.85362, 0.318805, 1.96361, -9.55362, 0.318805, 1.36361, -9.55362, 0.318805, 9.46361, -4.15362, 0.318805, 9.46361, 2.74638, 0.318805, 4.06361, 2.44638, 0.318805, 4.06361, 2.44638, 0.318805, 5.26361, 2.44638, 0.318805, 5.26361, 1.54638, 0.318805, 5.56361, 1.54638, 0.318805, 9.46361, 2.74638, 0.318805, 4.06361, 2.44638, 0.318805, 5.26361, 1.54638, 0.318805, 9.46361, 9.64638, 0.318805, 9.46361, 9.64638, 0.318805, 4.06361 )
+polygons = [ PoolIntArray( 2, 1, 0 ), PoolIntArray( 5, 4, 3 ), PoolIntArray( 8, 7, 6 ), PoolIntArray( 13, 12, 9 ), PoolIntArray( 9, 12, 11 ), PoolIntArray( 9, 11, 10 ), PoolIntArray( 16, 15, 14 ), PoolIntArray( 19, 18, 17 ), PoolIntArray( 23, 22, 20 ), PoolIntArray( 20, 22, 21 ), PoolIntArray( 28, 27, 24 ), PoolIntArray( 24, 27, 25 ), PoolIntArray( 25, 27, 26 ), PoolIntArray( 31, 30, 29 ), PoolIntArray( 36, 35, 32 ), PoolIntArray( 32, 35, 33 ), PoolIntArray( 33, 35, 34 ), PoolIntArray( 40, 39, 37 ), PoolIntArray( 37, 39, 38 ), PoolIntArray( 43, 42, 41 ), PoolIntArray( 48, 47, 44 ), PoolIntArray( 44, 47, 46 ), PoolIntArray( 44, 46, 45 ), PoolIntArray( 51, 50, 49 ), PoolIntArray( 56, 55, 52 ), PoolIntArray( 52, 55, 54 ), PoolIntArray( 52, 54, 53 ), PoolIntArray( 59, 58, 57 ), PoolIntArray( 64, 63, 60 ), PoolIntArray( 60, 63, 61 ), PoolIntArray( 61, 63, 62 ), PoolIntArray( 67, 66, 65 ), PoolIntArray( 70, 69, 68 ), PoolIntArray( 75, 74, 71 ), PoolIntArray( 71, 74, 72 ), PoolIntArray( 72, 74, 73 ) ]
+
+[sub_resource type="GDScript" id=6]
+script/source = "extends OmniLight
+tool
+
+onready var noise = NoiseTexture.new()
+
+
+onready var energyBase = self.light_energy
+onready var rangeBase = self.omni_range
+
+onready var energyRange = Vector2(self.energyBase - .1, self.energyBase + .1)
+onready var rangeRange = Vector2(self.rangeBase - 0.5, self.rangeBase + 0.5)
+
+var x_position = 0
+var flicker_loop_time = 10
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	
+	set_process(true)
+	
+	noise.noise = OpenSimplexNoise.new()
+	noise.width = 100
+	noise.height = 30
+	noise.seamless = true
+	
+
+func _process(delta):
+	
+	#Flicker our light
+	x_position += 100/flicker_loop_time  * delta
+	if x_position > 100:
+		x_position -= 100
+	
+	#Set the energy
+	var energyNormalOffset = noise.noise.get_noise_2dv(Vector2(x_position, 0))
+	var energyOffset = lerp(energyRange.x, energyRange.y, energyNormalOffset)
+	self.light_energy = energyOffset
+	
+	#Set the energy
+	var rangeNormalOffset = noise.noise.get_noise_2dv(Vector2(x_position, 30))
+	var rangeOffset = lerp(rangeRange.x, rangeRange.y, rangeNormalOffset)
+	self.omni_range = rangeOffset
+	
+	pass
+"
+
+[sub_resource type="PlaneMesh" id=4]
+
+[sub_resource type="Environment" id=5]
+ambient_light_color = Color( 0.00392157, 0.12549, 0.313726, 0.439216 )
+ambient_light_energy = 0.0
+
+[node name="Spatial" type="Navigation"]
+script = SubResource( 1 )
+
+[node name="Camera" type="Camera" parent="."]
+transform = Transform( 1, 0, 0, 0, 0.790978, 0.611845, 0, -0.611845, 0.790978, 0, 6.26306, 8.02424 )
+
+[node name="Character" type="Position3D" parent="."]
+transform = Transform( 0.99992, 0, -0.0126708, 0, 1, 0, 0.0126708, 0, 0.99992, 0, 0.0327385, 3.26603 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Character"]
+transform = Transform( 1, 0, 5.55112e-17, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0.740014, 0 )
+mesh = SubResource( 2 )
+material/0 = null
+
+[node name="ImmediateGeometry" type="ImmediateGeometry" parent="."]
+
+[node name="NavigationMeshInstance2" type="NavigationMeshInstance" parent="."]
+visible = false
+navmesh = SubResource( 3 )
+
+[node name="Terrain" type="CSGCombiner" parent="NavigationMeshInstance2"]
+
+[node name="Ground" type="CSGBox" parent="NavigationMeshInstance2/Terrain"]
+transform = Transform( 0.999999, 0.000864629, -0.000722092, -0.000864847, 1, -0.00031343, 0.000721832, 0.000314029, 1, 0, 0, 0 )
+width = 20.2927
+height = 0.138554
+depth = 20.0581
+
+[node name="CSGBox" type="CSGBox" parent="NavigationMeshInstance2/Terrain"]
+transform = Transform( 1, 0, 0, 0, -0.999998, -0.00188512, 0, 0.00188512, -0.999998, 2.59067, 0, -2.58502 )
+operation = 2
+width = 1.87823
+height = 0.888472
+depth = 2.07644
+
+[node name="CSGBox2" type="CSGBox" parent="NavigationMeshInstance2/Terrain"]
+transform = Transform( 0.711131, 0.00132535, -0.703058, 0, -0.999998, -0.00188512, -0.70306, 0.00134057, -0.71113, -4.11968, 0, 1.59554 )
+operation = 2
+width = 3.39231
+height = 0.888472
+depth = 3.34035
+
+[node name="CSGBox3" type="CSGBox" parent="NavigationMeshInstance2/Terrain"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.44314, 0, 4.46092 )
+operation = 2
+width = 0.870687
+height = 0.65224
+depth = 1.02221
+
+[node name="Tree_01" type="MeshInstance" parent="."]
+transform = Transform( -0.795572, 0.0697124, -0.601834, -0.0151111, 0.990766, 0.134739, 0.60567, 0.116289, -0.787172, 2.70226, 0.602282, -3.42079 )
+mesh = ExtResource( 1 )
+material/0 = null
+material/1 = null
+material/2 = null
+material/3 = null
+material/4 = null
+
+[node name="Tent_01" type="MeshInstance" parent="."]
+transform = Transform( 0.711131, 0, 0.70306, 0, 1, 0, -0.70306, 0, 0.711131, -4.10501, 0.226686, 3.76497 )
+mesh = ExtResource( 2 )
+material/0 = null
+material/1 = null
+material/2 = null
+material/3 = null
+material/4 = null
+
+[node name="Campfire_01" type="MeshInstance" parent="."]
+transform = Transform( 0.711131, 0, 0.70306, 0, 1, 0, -0.70306, 0, 0.711131, 1.44974, 0.0674281, 4.84668 )
+mesh = ExtResource( 3 )
+material/0 = null
+material/1 = null
+material/2 = null
+material/3 = null
+material/4 = null
+material/5 = null
+material/6 = null
+material/7 = null
+material/8 = null
+material/9 = null
+material/10 = null
+
+[node name="FireLight" type="OmniLight" parent="Campfire_01"]
+transform = Transform( 0.711131, 0, -0.70306, 0, 1, 0, 0.70306, 0, 0.711131, 0.326896, 2.01922, -0.500452 )
+light_color = Color( 0.607843, 0.447059, 0.105882, 1 )
+light_energy = 0.7
+light_specular = 0.55
+shadow_enabled = true
+omni_range = 7.7
+omni_attenuation = 0.615576
+script = SubResource( 6 )
+
+[node name="MeshInstance" type="MeshInstance" parent="."]
+transform = Transform( 10.6582, 0, 0, 0, 9.75307, 0, 0, 0, 9.75307, 0, 0.0697331, 0 )
+mesh = SubResource( 4 )
+material/0 = null
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource( 5 )
+
+[node name="DirectionalLight" type="DirectionalLight" parent="."]
+transform = Transform( -0.425097, 0.652614, -0.627206, 0.366145, 0.75769, 0.540225, 0.827786, -3.5649e-08, -0.561044, 0, 3.89505, 9.10951 )
+light_color = Color( 0.203922, 0.203922, 0.203922, 1 )
+light_energy = 0.57
+light_indirect_energy = 0.0
