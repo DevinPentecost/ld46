@@ -133,18 +133,18 @@ func _update_path():
 radius = 0.25
 
 [sub_resource type="NavigationMesh" id=3]
-vertices = PoolVector3Array( -3.85362, 0.318805, -1.03639, 1.24638, 0.318805, -1.63639, 1.24638, 0.318805, -3.73639, 1.24638, 0.318805, -3.73639, 2.44638, 0.318805, -4.03639, 2.44638, 0.318805, -9.43639, -9.55362, 0.318805, 1.36361, -6.85362, 0.318805, 1.36361, -3.85362, 0.318805, -1.03639, -9.55362, 0.318805, -9.43639, -9.55362, 0.318805, 1.36361, -3.85362, 0.318805, -1.03639, 1.24638, 0.318805, -3.73639, 2.44638, 0.318805, -9.43639, 2.44638, 0.318805, -9.43639, 2.44638, 0.318805, -4.03639, 3.64638, 0.318805, -4.03639, 3.64638, 0.318805, -4.03639, 3.94638, 0.318805, -2.53639, 9.64638, 0.318805, -2.53639, 3.64638, 0.318805, -4.03639, 9.64638, 0.318805, -2.53639, 9.64638, 0.318805, -9.43639, 2.44638, 0.318805, -9.43639, 3.94638, 0.318805, -1.33639, 2.74638, 0.318805, -1.03639, 2.74638, 0.318805, 4.06361, 9.64638, 0.318805, 4.06361, 9.64638, 0.318805, -2.53639, 9.64638, 0.318805, -2.53639, 3.94638, 0.318805, -2.53639, 3.94638, 0.318805, -1.33639, 2.14638, 0.318805, 3.46361, 2.44638, 0.318805, 4.06361, 2.74638, 0.318805, 4.06361, 2.74638, 0.318805, -1.03639, 1.54638, 0.318805, -1.03639, 1.24638, 0.318805, -1.63639, -3.85362, 0.318805, -1.03639, -1.45362, 0.318805, 1.06361, 1.54638, 0.318805, -1.03639, 0.646378, 0.318805, 5.26361, 0.646378, 0.318805, 3.76361, -1.45362, 0.318805, 1.96361, 2.14638, 0.318805, 3.46361, 1.54638, 0.318805, -1.03639, -1.45362, 0.318805, 1.06361, -1.45362, 0.318805, 1.96361, 0.646378, 0.318805, 3.76361, 1.54638, 0.318805, 9.46361, 1.54638, 0.318805, 5.56361, 0.646378, 0.318805, 5.26361, 0.646378, 0.318805, 5.26361, -1.45362, 0.318805, 1.96361, -4.15362, 0.318805, 4.06361, -4.15362, 0.318805, 9.46361, 1.54638, 0.318805, 9.46361, -6.85362, 0.318805, 1.96361, -6.85362, 0.318805, 1.36361, -9.55362, 0.318805, 1.36361, -4.15362, 0.318805, 4.06361, -6.85362, 0.318805, 1.96361, -9.55362, 0.318805, 1.36361, -9.55362, 0.318805, 9.46361, -4.15362, 0.318805, 9.46361, 2.74638, 0.318805, 4.06361, 2.44638, 0.318805, 4.06361, 2.44638, 0.318805, 5.26361, 2.44638, 0.318805, 5.26361, 1.54638, 0.318805, 5.56361, 1.54638, 0.318805, 9.46361, 2.74638, 0.318805, 4.06361, 2.44638, 0.318805, 5.26361, 1.54638, 0.318805, 9.46361, 9.64638, 0.318805, 9.46361, 9.64638, 0.318805, 4.06361 )
-polygons = [ PoolIntArray( 2, 1, 0 ), PoolIntArray( 5, 4, 3 ), PoolIntArray( 8, 7, 6 ), PoolIntArray( 13, 12, 9 ), PoolIntArray( 9, 12, 11 ), PoolIntArray( 9, 11, 10 ), PoolIntArray( 16, 15, 14 ), PoolIntArray( 19, 18, 17 ), PoolIntArray( 23, 22, 20 ), PoolIntArray( 20, 22, 21 ), PoolIntArray( 28, 27, 24 ), PoolIntArray( 24, 27, 25 ), PoolIntArray( 25, 27, 26 ), PoolIntArray( 31, 30, 29 ), PoolIntArray( 36, 35, 32 ), PoolIntArray( 32, 35, 33 ), PoolIntArray( 33, 35, 34 ), PoolIntArray( 40, 39, 37 ), PoolIntArray( 37, 39, 38 ), PoolIntArray( 43, 42, 41 ), PoolIntArray( 48, 47, 44 ), PoolIntArray( 44, 47, 46 ), PoolIntArray( 44, 46, 45 ), PoolIntArray( 51, 50, 49 ), PoolIntArray( 56, 55, 52 ), PoolIntArray( 52, 55, 54 ), PoolIntArray( 52, 54, 53 ), PoolIntArray( 59, 58, 57 ), PoolIntArray( 64, 63, 60 ), PoolIntArray( 60, 63, 61 ), PoolIntArray( 61, 63, 62 ), PoolIntArray( 67, 66, 65 ), PoolIntArray( 70, 69, 68 ), PoolIntArray( 75, 74, 71 ), PoolIntArray( 71, 74, 72 ), PoolIntArray( 72, 74, 73 ) ]
+vertices = PoolVector3Array( -3.55364, 0.318805, -1.0364, -2.35364, 0.318805, 0.163605, 1.24636, 0.318805, -1.6364, -3.55364, 0.318805, -1.0364, 1.24636, 0.318805, -1.6364, 1.24636, 0.318805, -3.7364, -4.45364, 0.318805, -1.0364, -9.55364, 0.318805, 1.3636, -6.85364, 0.318805, 1.3636, -4.45364, 0.318805, -1.0364, 1.24636, 0.318805, -3.7364, 2.44636, 0.318805, -4.0364, 2.44636, 0.318805, -9.4364, -9.55364, 0.318805, -9.4364, -9.55364, 0.318805, 1.3636, -4.45364, 0.318805, -1.0364, 1.24636, 0.318805, -3.7364, 2.44636, 0.318805, -9.4364, 2.44636, 0.318805, -9.4364, 2.44636, 0.318805, -4.0364, 3.64636, 0.318805, -4.0364, 3.64636, 0.318805, -4.0364, 3.94636, 0.318805, -2.5364, 9.64636, 0.318805, -2.5364, 3.64636, 0.318805, -4.0364, 9.64636, 0.318805, -2.5364, 9.64636, 0.318805, -9.4364, 2.44636, 0.318805, -9.4364, 2.14636, 0.318805, -1.0364, 2.14636, 0.318805, 1.9636, 2.74636, 0.318805, 2.2636, 3.64636, 0.318805, -1.0364, 9.64636, 0.318805, -2.5364, 3.94636, 0.318805, -2.5364, 3.64636, 0.318805, -1.0364, 3.64636, 0.318805, -1.0364, 2.74636, 0.318805, 2.2636, 2.44636, 0.318805, 3.7636, 9.64636, 0.318805, 4.0636, 9.64636, 0.318805, -2.5364, 0.94636, 0.318805, 2.2636, 2.14636, 0.318805, 1.9636, 2.14636, 0.318805, -1.0364, 1.24636, 0.318805, -1.6364, -2.35364, 0.318805, 0.163605, -1.45364, 0.318805, 1.0636, 0.94636, 0.318805, 3.4636, 0.94636, 0.318805, 2.2636, -1.45364, 0.318805, 1.9636, -4.15364, 0.318805, 4.0636, 0.94636, 0.318805, 2.2636, -1.45364, 0.318805, 1.0636, -1.45364, 0.318805, 1.9636, 1.84636, 0.318805, 3.7636, 0.94636, 0.318805, 3.4636, -4.15364, 0.318805, 4.0636, -4.15364, 0.318805, 9.4636, 1.84636, 0.318805, 9.4636, -6.85364, 0.318805, 1.9636, -6.85364, 0.318805, 1.3636, -9.55364, 0.318805, 1.3636, -4.15364, 0.318805, 4.0636, -6.85364, 0.318805, 1.9636, -9.55364, 0.318805, 1.3636, -9.55364, 0.318805, 9.4636, -4.15364, 0.318805, 9.4636, 2.44636, 0.318805, 3.7636, 1.84636, 0.318805, 3.7636, 1.84636, 0.318805, 9.4636, 9.64636, 0.318805, 9.4636, 9.64636, 0.318805, 4.0636 )
+polygons = [ PoolIntArray( 2, 1, 0 ), PoolIntArray( 6, 5, 3 ), PoolIntArray( 3, 5, 4 ), PoolIntArray( 9, 8, 7 ), PoolIntArray( 12, 11, 10 ), PoolIntArray( 17, 16, 13 ), PoolIntArray( 13, 16, 15 ), PoolIntArray( 13, 15, 14 ), PoolIntArray( 20, 19, 18 ), PoolIntArray( 23, 22, 21 ), PoolIntArray( 27, 26, 24 ), PoolIntArray( 24, 26, 25 ), PoolIntArray( 31, 30, 28 ), PoolIntArray( 28, 30, 29 ), PoolIntArray( 34, 33, 32 ), PoolIntArray( 39, 38, 35 ), PoolIntArray( 35, 38, 36 ), PoolIntArray( 36, 38, 37 ), PoolIntArray( 45, 44, 40 ), PoolIntArray( 40, 44, 41 ), PoolIntArray( 41, 44, 42 ), PoolIntArray( 42, 44, 43 ), PoolIntArray( 49, 48, 46 ), PoolIntArray( 46, 48, 47 ), PoolIntArray( 52, 51, 50 ), PoolIntArray( 57, 56, 53 ), PoolIntArray( 53, 56, 54 ), PoolIntArray( 54, 56, 55 ), PoolIntArray( 60, 59, 58 ), PoolIntArray( 65, 64, 61 ), PoolIntArray( 61, 64, 62 ), PoolIntArray( 62, 64, 63 ), PoolIntArray( 70, 69, 66 ), PoolIntArray( 66, 69, 67 ), PoolIntArray( 67, 69, 68 ) ]
 
-[sub_resource type="GDScript" id=6]
+[sub_resource type="GDScript" id=4]
 script/source = "extends OmniLight
 tool
 
 onready var noise = NoiseTexture.new()
 
 
-onready var energyBase = self.light_energy
-onready var rangeBase = self.omni_range
+onready var energyBase = 0.7
+onready var rangeBase = 7.7
 
 onready var energyRange = Vector2(self.energyBase - .1, self.energyBase + .1)
 onready var rangeRange = Vector2(self.rangeBase - 0.5, self.rangeBase + 0.5)
@@ -183,11 +183,9 @@ func _process(delta):
 	pass
 "
 
-[sub_resource type="PlaneMesh" id=4]
+[sub_resource type="PlaneMesh" id=5]
 
-[sub_resource type="Environment" id=5]
-ambient_light_color = Color( 0.00392157, 0.12549, 0.313726, 0.439216 )
-ambient_light_energy = 0.0
+[sub_resource type="Environment" id=6]
 
 [node name="Spatial" type="Navigation"]
 script = SubResource( 1 )
@@ -206,7 +204,6 @@ material/0 = null
 [node name="ImmediateGeometry" type="ImmediateGeometry" parent="."]
 
 [node name="NavigationMeshInstance2" type="NavigationMeshInstance" parent="."]
-visible = false
 navmesh = SubResource( 3 )
 
 [node name="Terrain" type="CSGCombiner" parent="NavigationMeshInstance2"]
@@ -232,7 +229,7 @@ height = 0.888472
 depth = 3.34035
 
 [node name="CSGBox3" type="CSGBox" parent="NavigationMeshInstance2/Terrain"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.44314, 0, 4.46092 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.9632, 0, 2.78916 )
 operation = 2
 width = 0.870687
 height = 0.65224
@@ -257,7 +254,7 @@ material/3 = null
 material/4 = null
 
 [node name="Campfire_01" type="MeshInstance" parent="."]
-transform = Transform( 0.711131, 0, 0.70306, 0, 1, 0, -0.70306, 0, 0.711131, 1.44974, 0.0674281, 4.84668 )
+transform = Transform( 0.711131, 0, 0.70306, 0, 1, 0, -0.70306, 0, 0.711131, 1.95177, 0.0674281, 3.32041 )
 mesh = ExtResource( 3 )
 material/0 = null
 material/1 = null
@@ -274,23 +271,21 @@ material/10 = null
 [node name="FireLight" type="OmniLight" parent="Campfire_01"]
 transform = Transform( 0.711131, 0, -0.70306, 0, 1, 0, 0.70306, 0, 0.711131, 0.326896, 2.01922, -0.500452 )
 light_color = Color( 0.607843, 0.447059, 0.105882, 1 )
-light_energy = 0.7
+light_energy = 0.509658
 light_specular = 0.55
 shadow_enabled = true
-omni_range = 7.7
+omni_range = 6.95536
 omni_attenuation = 0.615576
-script = SubResource( 6 )
+script = SubResource( 4 )
+
+[node name="RemoteTransform" type="RemoteTransform" parent="Campfire_01"]
+transform = Transform( 0.711131, 0, -0.70306, 0, 1, 0, 0.70306, 0, 0.711131, 0.381624, -0.0674281, -0.36975 )
+remote_path = NodePath("../../NavigationMeshInstance2/Terrain/CSGBox3")
 
 [node name="MeshInstance" type="MeshInstance" parent="."]
 transform = Transform( 10.6582, 0, 0, 0, 9.75307, 0, 0, 0, 9.75307, 0, 0.0697331, 0 )
-mesh = SubResource( 4 )
+mesh = SubResource( 5 )
 material/0 = null
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource( 5 )
-
-[node name="DirectionalLight" type="DirectionalLight" parent="."]
-transform = Transform( -0.425097, 0.652614, -0.627206, 0.366145, 0.75769, 0.540225, 0.827786, -3.5649e-08, -0.561044, 0, 3.89505, 9.10951 )
-light_color = Color( 0.203922, 0.203922, 0.203922, 1 )
-light_energy = 0.57
-light_indirect_energy = 0.0
+environment = SubResource( 6 )
