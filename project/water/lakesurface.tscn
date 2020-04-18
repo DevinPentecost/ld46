@@ -15,6 +15,12 @@ uniform vec2 wave_amp = vec2(0.04, 0.05);
 uniform vec2 wave_freq = vec2(1.0, 2.5);
 uniform vec2 time_factor = vec2(2.0, 3.0);
 
+// Let's allow for a disturbance in the water to be modelled.
+// Location is in mesh-relative space. 0,0 is the center of the mesh.
+uniform vec2 disturb_location = vec2(0.0, 0.0);
+uniform float disturb_magnitude = 5.2;
+uniform float disturb_freq = 3.0;
+
 void fragment() {
 	float fresnel_approx = sqrt(1.0 - dot(NORMAL, VIEW));
 	ALBEDO = texture(refl_tx, vec2(1.0 - SCREEN_UV.x, SCREEN_UV.y)).rgb * (1.0 * fresnel_approx);
@@ -23,16 +29,40 @@ void fragment() {
 	METALLIC = 0.0;
 }
 
-float height(vec2 pos, float time) {
+// This is the height of the water at the disturbance.
+// It will get mixed into the total height.
+float disturbance_height(vec2 pos, vec2 world_pos, float time) {
+	// Now handle a disturbance, if any.
+	// This is done with a ripple effect, but the center of it needs
+	// to be able to be offset.
+	float dist = distance(pos + disturb_location, vec2(0.0, 0.0));
+	// Frequency drops the further away we get from center.
+	float ripples = sin(dist * disturb_freq - time * time_factor.x);
+	// So does magnitude!
+	ripples = smoothstep(-1.0, 1.5, ripples / dist);
+	
+	return ripples * disturb_magnitude;
+}
+
+// This the total height of the water, given uv pos and time variable
+float height(vec2 pos, vec2 world_pos, float time) {
+	// Smooth sine waves
 	float waves = (wave_amp.x * sin(pos.x * wave_freq.x + time * time_factor.x)) + (wave_amp.y * sin(pos.y * wave_freq.y  + time * time_factor.y));
-	return texture(noise_tx, pos / 10.0).x * waves;
+	// Some tiling noise to break it up a bit
+	float noise = texture(noise_tx, time * pos / 200.0).x;
+	// Let's add a plunk.
+	float ripple = disturbance_height(pos, world_pos, time);
+	
+	return noise * waves + ripple;
 }
 
 void vertex() {
-	VERTEX.y += height(VERTEX.xz, TIME);
+	vec2 wrld = (CAMERA_MATRIX * vec4(VERTEX, 1.0)).xz;
 	
-	TANGENT = normalize(vec3(0.0, height(VERTEX.xz + vec2(0.0, 0.2), TIME) - height(VERTEX.xz + vec2(0.0, -0.2), TIME), 0.4));
-	BINORMAL = normalize(vec3(0.4, height(VERTEX.xz + vec2(0.2, 0.0), TIME) - height(VERTEX.xz + vec2(-0.2, 0.0), TIME), 0.0));
+	VERTEX.y += height(VERTEX.xz, wrld, TIME);
+	
+	TANGENT = normalize(vec3(0.0, height(VERTEX.xz + vec2(0.0, 0.2), wrld + vec2(0.0, 0.2), TIME) - height(VERTEX.xz + vec2(0.0, -0.2), wrld + vec2(0.0, -0.2), TIME), 0.4));
+	BINORMAL = normalize(vec3(0.4, height(VERTEX.xz + vec2(0.2, 0.0), wrld + vec2(0.2, 0.0), TIME) - height(VERTEX.xz + vec2(-0.2, 0.0), wrld + + vec2(-0.2, 0.0), TIME), 0.0));
 	NORMAL = cross(TANGENT, BINORMAL);
 }"
 
@@ -45,6 +75,9 @@ shader = SubResource( 1 )
 shader_param/wave_amp = Vector2( 0.04, 0.05 )
 shader_param/wave_freq = Vector2( 1, 2.5 )
 shader_param/time_factor = Vector2( 2, 3 )
+shader_param/disturb_location = Vector2( 4, 4 )
+shader_param/disturb_magnitude = 0.2
+shader_param/disturb_freq = 3.0
 shader_param/refl_tx = SubResource( 2 )
 shader_param/noise_tx = ExtResource( 2 )
 
