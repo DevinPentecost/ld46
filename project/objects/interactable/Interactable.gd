@@ -24,7 +24,7 @@ func _get_best_destination(starting_point : Vector3) -> Spatial:
 	var min_destination = null
 	for destination in $Destinations.get_children():
 		#What is the distance?
-		var distance = starting_point.distance_squared_to(destination.transform.origin)
+		var distance = starting_point.distance_squared_to(destination.global_transform.origin)
 		if distance < min_distance:
 			min_distance = distance
 			min_destination = destination
