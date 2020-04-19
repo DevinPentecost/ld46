@@ -1,0 +1,18 @@
+{
+  "name": "localtest",
+  "version": "1.0.0",
+  "description": "Local testing",
+  "main": "server.js",
+  "private": true,
+  "dependencies": {
+    "node-static": "^0.7.11",
+    "open": "^7.0.3"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "",
+  "license": "ISC"
+}
