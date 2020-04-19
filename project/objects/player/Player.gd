@@ -4,6 +4,8 @@ class_name Player
 #Some player constants
 const TURN_SPEED = 4 # Radians per second
 const WALK_SPEED = 4 # Units per second
+const THROW_FIRE_TIME = 0.5 # Seconds for the throw
+const THROW_WATER_TIME = 0.75 # Seconds for the throw
 
 #Player variables
 onready var previous_position : Vector3 = self.transform.origin
@@ -87,6 +89,33 @@ func _pickup(target : Pickup):
 	target.get_parent().remove_child(target)
 	$CarryPoint.add_child(target)
 
+func _throw_fire(fire : Fire):
+	
+	#Make sure we are carrying something
+	if carrying:
+		
+		#Face the target
+		
+		#Throw it
+		fire.throw(carrying)
+		
+		#Stop carrying it
+		carrying = null
+		
+		
+		
+func _throw_water(water):
+	
+	#Make sure we are carrying something
+	if carrying:
+		
+		#Face the target
+		
+		#Throw it
+		water.throw(carrying)
+		
+		#Stop carrying it
+		carrying = null
 
 func _on_Area_area_entered(area):
 	
@@ -100,3 +129,10 @@ func _on_Area_area_entered(area):
 			var target = target_interactable
 			target_interactable = null
 			_pickup(target)
+		
+		#Is it a fire?
+		if target_interactable is Fire:
+			print("I reached a fire")
+			if carrying:
+				print("Throwing something in")
+				_throw_fire(target_interactable)

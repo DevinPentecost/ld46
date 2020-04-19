@@ -38,7 +38,7 @@ func _input(event):
 			#Is it hovered?
 			if interactable.active and interactable.hovered:
 				#This is the one we want to move to
-				to_point = interactable.get_best_location(player.transform.origin)
+				to_point = interactable.get_best_location(player.global_transform.origin)
 				player.target_interactable = interactable
 				break
 		

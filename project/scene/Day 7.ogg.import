@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/Day 7.ogg-5f482987ed03a08e5fa2d5d01687256f.oggstr"
+
+[deps]
+
+source_file="res://scene/Day 7.ogg"
+dest_files=[ "res://.import/Day 7.ogg-5f482987ed03a08e5fa2d5d01687256f.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

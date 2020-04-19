@@ -33,5 +33,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
 shape = SubResource( 3 )
 
 [node name="CarryPoint" type="Position3D" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.23929, -1.37354 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25, -1.5 )
+
+[node name="Tween" type="Tween" parent="."]
 [connection signal="area_entered" from="Area" to="." method="_on_Area_area_entered"]
