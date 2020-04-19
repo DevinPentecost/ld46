@@ -12,7 +12,7 @@ func _ready():
 	_add_destination($Destination3)
 
 
-func throw(node):
+func throw(node : Pickup):
 	
 	var node_position = node.global_transform.origin
 	
