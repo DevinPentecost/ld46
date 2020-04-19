@@ -9,6 +9,11 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "Interactable",
+"class": "Fire",
+"language": "GDScript",
+"path": "res://objects/interactable/Fire/Fire.gd"
+}, {
 "base": "Spatial",
 "class": "Interactable",
 "language": "GDScript",
@@ -17,11 +22,18 @@ _global_script_classes=[ {
 "base": "Interactable",
 "class": "Pickup",
 "language": "GDScript",
-"path": "res://objects/interactable/Pickup.gd"
+"path": "res://objects/interactable/Pickup/Pickup.gd"
+}, {
+"base": "Spatial",
+"class": "Player",
+"language": "GDScript",
+"path": "res://objects/player/Player.gd"
 } ]
 _global_script_class_icons={
+"Fire": "",
 "Interactable": "",
-"Pickup": ""
+"Pickup": "",
+"Player": ""
 }
 
 [application]

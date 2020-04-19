@@ -1,5 +1,5 @@
 extends Spatial
-
+class_name Player
 
 #Some player constants
 const TURN_SPEED = 4 # Radians per second
@@ -8,9 +8,12 @@ const WALK_SPEED = 4 # Units per second
 #Player variables
 onready var previous_position : Vector3 = self.transform.origin
 var walk_path = []
+var target_interactable : Interactable
+var carrying : Pickup = null
 
 #Get relevant nodes
 onready var navigation = get_tree().get_nodes_in_group("navigation")[0]
+
 
 
 # Called when the node enters the scene tree for the first time.
@@ -26,6 +29,7 @@ func walk_to_point(point : Vector3):
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	
 	#Is there anything left of the path?
 	if walk_path.size() > 1:
 		
@@ -70,3 +74,29 @@ func _process(delta):
 	
 		if walk_path.size() < 2:
 			walk_path.clear()
+	
+
+func _pickup(target : Pickup):
+	
+	#We need to switch our state to playing the correct animations
+	carrying = target
+	target.active = false
+	target.picked_up = false
+	
+	# Re-parent the node
+	target.get_parent().remove_child(target)
+	$CarryPoint.add_child(target)
+
+
+func _on_Area_area_entered(area):
+	
+	#We touched something...
+	if target_interactable and target_interactable.active and target_interactable.has_destination(area):
+		print("Reached what we wanted to interact with!")
+		
+		# Is this a pickup?
+		if target_interactable is Pickup:
+			print("I want to pick it up")
+			var target = target_interactable
+			target_interactable = null
+			_pickup(target)

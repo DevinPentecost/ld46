@@ -5,8 +5,7 @@ export(NodePath) var look_target
 # Camera constants
 const TURN_SPEED = 1 # Radians per second
 
-onready var player = get_tree().get_nodes_in_group("player")[0]
-
+onready var player : Player = get_tree().get_nodes_in_group("player")[0]
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -18,8 +17,6 @@ func _ready():
 	set_process(true)
 	set_process_input(true)
 
-
-
 func _input(event):
 	
 	#Poll for left click input
@@ -27,7 +24,13 @@ func _input(event):
 		
 		#Grab the starting point for the click (at the camera itself)
 		var from_point = project_ray_origin(event.position)
-		var to_point
+		
+		#Ask navigation for the target
+		var to_point = from_point + project_ray_normal(event.position) * 100
+		to_point = player.navigation.get_closest_point_to_segment(from_point, to_point)
+		
+		# We don't know if we're grabbing something yet
+		player.target_interactable = null
 		
 		# Check to see if we hit a game object
 		# Check all interactables
@@ -35,13 +38,9 @@ func _input(event):
 			#Is it hovered?
 			if interactable.active and interactable.hovered:
 				#This is the one we want to move to
-				to_point = interactable.transform.origin
+				to_point = interactable.get_best_location(player.transform.origin)
+				player.target_interactable = interactable
 				break
-			
-		if to_point == null:
-			#Ask navigation for the target
-			to_point = from_point + project_ray_normal(event.position) * 100
-			to_point = player.navigation.get_closest_point_to_segment(from_point, to_point)
 		
 		#Navigate to the target point
 		player.walk_to_point(to_point)
