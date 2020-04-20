@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/fire_crackling.ogg-7bcd283a14dfc34c337401f85279b3de.oggstr"
+
+[deps]
+
+source_file="res://objects/interactable/Fire/fire_crackling.ogg"
+dest_files=[ "res://.import/fire_crackling.ogg-7bcd283a14dfc34c337401f85279b3de.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0
