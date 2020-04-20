@@ -23,7 +23,7 @@ texture = ExtResource( 3 )
 
 [node name="signature" type="Sprite3D" parent="agameby"]
 transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 2, -3.86452, -4.98484, 0 )
-opacity = 0.927766
+modulate = Color( 0.796078, 0.858824, 0.988235, 1 )
 texture = ExtResource( 10 )
 
 [node name="sig_visible_timer" type="Timer" parent="."]
@@ -43,12 +43,12 @@ shape = SubResource( 1 )
 
 [node name="Sprite3D" type="Sprite3D" parent="start_button/CollisionShape"]
 transform = Transform( 0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0.109158, 0 )
-modulate = Color( 0.94, 0.5, 0.5, 1 )
+modulate = Color( 0.85098, 0.341176, 0.388235, 1 )
 texture = ExtResource( 5 )
 
 [node name="title" type="Sprite3D" parent="."]
 transform = Transform( 1.5, 0, 0, 0, 1.5, 0, 0, 0, 1, 0.444525, -0.00466061, -4.4 )
-modulate = Color( 1, 1, 0, 1 )
+modulate = Color( 0.984314, 0.94902, 0.211765, 1 )
 texture = ExtResource( 6 )
 [connection signal="timeout" from="sig_visible_timer" to="." method="_on_sig_visible_timer_timeout"]
 [connection signal="timeout" from="sig_hidden_timer" to="." method="_on_sig_hidden_timer_timeout"]

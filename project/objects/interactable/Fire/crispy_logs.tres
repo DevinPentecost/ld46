@@ -56,6 +56,6 @@ shader = SubResource( 1 )
 shader_param/color_base = Color( 0.666667, 0, 0, 1 )
 shader_param/color_dark = Color( 0, 0, 0, 1 )
 shader_param/color_crispy = Color( 1, 1, 0, 1 )
-shader_param/crispyness = 0.259031
+shader_param/crispyness = 0.228954
 shader_param/texture_base = ExtResource( 1 )
 shader_param/texture_crispy = ExtResource( 2 )

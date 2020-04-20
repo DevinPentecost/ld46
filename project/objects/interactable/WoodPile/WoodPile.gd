@@ -17,5 +17,7 @@ func _interact(player):
 		
 		#Give that log to the player
 		player._pickup(new_log)
-	else:
-		self.active = false
+		
+		#More logs?
+		if not $Logs.get_child(0):
+			self.active = false

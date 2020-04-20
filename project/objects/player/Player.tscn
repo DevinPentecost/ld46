@@ -1,10 +1,15 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://objects/player/Player.gd" type="Script" id=1]
 [ext_resource path="res://mesh/player.glb" type="PackedScene" id=2]
+[ext_resource path="res://mesh/camper.png" type="Texture" id=3]
 
-[sub_resource type="BoxShape" id=3]
+[sub_resource type="BoxShape" id=1]
 extents = Vector3( 0.5, 1, 0.5 )
+
+[sub_resource type="SpatialMaterial" id=2]
+albedo_texture = ExtResource( 3 )
+metallic_specular = 0.0
 
 [node name="Player" type="Spatial" groups=[
 "player",
@@ -17,7 +22,7 @@ drop_unlock_time = 0.8
 
 [node name="CollisionShape" type="CollisionShape" parent="Area"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
-shape = SubResource( 3 )
+shape = SubResource( 1 )
 
 [node name="Tween" type="Tween" parent="."]
 
@@ -27,8 +32,11 @@ transform = Transform( -0.25, 0, -8.14603e-08, 0, 0.25, 0, 8.14603e-08, 0, -0.25
 [node name="Skeleton" parent="player/player" index="0"]
 bones/4/bound_children = [ NodePath("BoneAttachment") ]
 
+[node name="player_mesh" parent="player/player/Skeleton" index="0"]
+material/0 = SubResource( 2 )
+
 [node name="BoneAttachment" type="BoneAttachment" parent="player/player/Skeleton" index="1"]
-transform = Transform( -0.908261, 0.0385311, 0.41663, 0.356758, -0.448928, 0.819259, 0.218604, 0.892737, 0.393998, 1.25287, 0.849776, 0.798545 )
+transform = Transform( -0.489584, -0.118863, 0.863819, 0.717009, 0.508865, 0.476398, -0.496192, 0.852602, -0.163906, 1.26694, 0.11705, 0.254852 )
 bone_name = "forearml"
 
 [node name="CarryPoint" type="Position3D" parent="player/player/Skeleton/BoneAttachment"]
