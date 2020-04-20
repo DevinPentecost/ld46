@@ -54,6 +54,7 @@ omni_range = 6.9649
 
 [node name="crispylight" parent="Fire/Campfire/CrispyLogs" index="2"]
 light_color = Color( 0.697442, 0.0923238, 0, 1 )
+light_energy = 2.10432
 
 [node name="Tween" type="Tween" parent="."]
 
