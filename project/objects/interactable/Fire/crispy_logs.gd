@@ -5,7 +5,7 @@ onready var noise = NoiseTexture.new()
 
 export(Color) var fire_normal
 export(Color) var fire_crispy
-export(float, 0, 1) var fire_brightness = 1.0
+export(float, 0, 2) var fire_brightness = 1.0
 
 var brightness_flicker_scale = 0.1 #10 percent flicker range from the brightness setpoint
 var actual_brightness = fire_brightness
@@ -38,7 +38,7 @@ func _process(delta):
 	if noise_x_position > noise.width:
 		noise_x_position -= noise.width
 	
-	actual_brightness = noise.noise.get_noise_2dv(Vector2(noise_x_position, 0)) * (-1)
+	actual_brightness = noise.noise.get_noise_2dv(Vector2(noise_x_position, 0)) * (-1) + fire_brightness
 	_update_light_color()
 	_update_shader_brightness()
 
@@ -56,6 +56,7 @@ func _calcluate_actual_brightness():
 func _update_light_color():
 	var light = self.get_node("crispylight");
 	light.light_color = fire_normal.linear_interpolate(fire_crispy, max(0, actual_brightness));
+	light.light_energy = actual_brightness
 
 func _update_shader_colors():
 	_apply_to_shaders("shader_param/color_base", fire_normal);

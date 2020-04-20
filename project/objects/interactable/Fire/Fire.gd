@@ -27,3 +27,6 @@ func throw(node : Pickup):
 	$Tween.start()
 	yield($Tween, "tween_completed")
 	follow.queue_free()
+	
+	# Add some fuel to the fire!
+	$Campfire.add_fuel()
