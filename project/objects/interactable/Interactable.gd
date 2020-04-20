@@ -13,6 +13,9 @@ func _ready():
 	if hover_material:
 		$HoverMesh.material_override = hover_material
 
+func _interact():
+	#Do something when interacted with
+	pass
 
 func get_best_location(starting_point : Vector3) -> Vector3:
 	#Override this to get different 'hard points' to stand at

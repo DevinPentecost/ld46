@@ -5,12 +5,6 @@ const THROW_TIME = 0.25
 
 func _ready():
 	._ready()
-	
-	#Also add some more destination areas
-	_add_destination($Destination)
-	_add_destination($Destination2)
-	_add_destination($Destination3)
-
 
 func throw(node : Pickup):
 	

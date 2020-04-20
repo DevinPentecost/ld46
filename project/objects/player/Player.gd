@@ -131,8 +131,13 @@ func _on_Area_area_entered(area):
 			_pickup(target)
 		
 		#Is it a fire?
-		if target_interactable is Fire:
+		elif target_interactable is Fire:
 			print("I reached a fire")
 			if carrying:
 				print("Throwing something in")
 				_throw_fire(target_interactable)
+				
+		#Generic fallback
+		else:
+			print("I reached something")
+			target_interactable._interact()

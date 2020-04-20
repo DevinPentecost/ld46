@@ -1,13 +1,42 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://icon.png" type="Texture" id=1]
 
 [sub_resource type="GDScript" id=1]
 script/source = "extends Spatial
+
+const HORIZONTAL_ROTATION_BOUNDS = Vector2(-45, 45) # Degrees rotation
+
+
 func _ready():
 	hide()
+
+
+func get_vertical_path_point(percent : float):
+	$\"Vertical Camera Path/PathFollow\".unit_offset = percent
+	return $\"Vertical Camera Path/PathFollow\".global_transform.origin
+
+func rotate_horizontally(relative_position: Vector3):
+	
+	var angle = global_transform.looking_at(relative_position, Vector3.UP)
+	#target_angle = clamp(target_angle, HORIZONTAL_ROTATION_BOUNDS.x, HORIZONTAL_ROTATION_BOUNDS.y)
+	$\"Vertical Camera Path\".transform = angle
 "
+
+[sub_resource type="Curve3D" id=2]
+_data = {
+"points": PoolVector3Array( 0, 0, 0, 0, 0, 0, 0.106041, 0.603538, 5.32569, -0.0118804, -8.23445, -0.553591, 0.0118804, 8.23445, 0.553591, 0.0870047, 11.3384, 16.3098 ),
+"tilts": PoolRealArray( 0, 0 )
+}
 
 [node name="LookTarget" type="Sprite3D"]
 texture = ExtResource( 1 )
 script = SubResource( 1 )
+
+[node name="Vertical Camera Path" type="Path" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0267792, -0.0447004, 0.0300627 )
+curve = SubResource( 2 )
+
+[node name="PathFollow" type="PathFollow" parent="Vertical Camera Path"]
+transform = Transform( 0.996781, 0.0702078, 0.0386231, 0.0366488, -0.828076, 0.559419, 0.0712578, -0.556199, -0.827987, 0.0848415, 6.33739, 14.4718 )
+offset = 10.9823

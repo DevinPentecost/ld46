@@ -1,15 +1,15 @@
-[gd_scene load_steps=10 format=2]
+
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://objects/interactable/Interactable.tscn" type="PackedScene" id=1]
-[ext_resource path="res://objects/interactable/HoverMaterial.tres" type="Material" id=2]
-[ext_resource path="res://objects/interactable/Fire/CampfireHoverMesh.tres" type="ArrayMesh" id=3]
-[ext_resource path="res://objects/interactable/Fire/Campfire_01.obj" type="ArrayMesh" id=4]
+[ext_resource path="res://objects/interactable/Fire/FireModel.tscn" type="PackedScene" id=2]
+[ext_resource path="res://objects/interactable/Fire/FireHover.tres" type="ArrayMesh" id=3]
 [ext_resource path="res://objects/interactable/Fire/Fire.gd" type="Script" id=5]
 [ext_resource path="res://objects/interactable/Fire/OmniLight.gd" type="Script" id=6]
 [ext_resource path="res://objects/interactable/Fire/campfire.tscn" type="PackedScene" id=7]
 
 [sub_resource type="BoxShape" id=1]
-extents = Vector3( 0.25, 0.25, 0.25 )
+extents = Vector3( 0.25, 1, 0.25 )
 
 [sub_resource type="Curve3D" id=2]
 _data = {
@@ -17,80 +17,67 @@ _data = {
 "tilts": PoolRealArray( 0, 0 )
 }
 
-[node name="Fire" instance=ExtResource( 1 )]
+[node name="Fire" groups=[
+"fire",
+] instance=ExtResource( 1 )]
 script = ExtResource( 5 )
 hover_material = null
-
-[node name="HoverArea" parent="." index="0"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00751328, 5.96046e-08, 0.00118351 )
 
 [node name="CollisionShape" parent="HoverArea" index="0"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0 )
 
 [node name="HoverMesh" parent="." index="1"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.35, 0, 0.35 )
+transform = Transform( -0.0360734, -0.409283, 0.00312724, 0.00220507, -0.0196416, -0.106864, 0.0791382, -0.186015, 0.00440308, -0.0425122, 0.184621, 0.0639437 )
 mesh = ExtResource( 3 )
-material/0 = ExtResource( 2 )
+material/0 = null
 
 [node name="DestinationArea" parent="Destinations" index="0"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.25, 0.25, 0 )
 
-[node name="FireModel" type="MeshInstance" parent="." index="3"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.35, 0, 0.35 )
-visible = false
-mesh = ExtResource( 4 )
-material/0 = null
-material/1 = null
-material/2 = null
-material/3 = null
-material/4 = null
-material/5 = null
-material/6 = null
-material/7 = null
-material/8 = null
-material/9 = null
-material/10 = null
 
-[node name="Destination" type="Area" parent="." index="4"]
+[node name="Destination" type="Area" parent="Destinations" index="1"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.25 )
 
-[node name="CollisionShape" type="CollisionShape" parent="Destination" index="0"]
+[node name="CollisionShape" type="CollisionShape" parent="Destinations/Destination" index="0"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.305079, 0 )
 shape = SubResource( 1 )
 __meta__ = {
 "_editor_description_": ""
 }
 
-[node name="Destination2" type="Area" parent="." index="5"]
+[node name="Destination2" type="Area" parent="Destinations" index="2"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.25 )
 
-[node name="CollisionShape" type="CollisionShape" parent="Destination2" index="0"]
+[node name="CollisionShape" type="CollisionShape" parent="Destinations/Destination2" index="0"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.305079, 0 )
 shape = SubResource( 1 )
 __meta__ = {
 "_editor_description_": ""
 }
 
-[node name="Destination3" type="Area" parent="." index="6"]
+[node name="Destination3" type="Area" parent="Destinations" index="3"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.25, 0, 0 )
 
-[node name="CollisionShape" type="CollisionShape" parent="Destination3" index="0"]
+[node name="CollisionShape" type="CollisionShape" parent="Destinations/Destination3" index="0"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.305079, 0 )
 shape = SubResource( 1 )
 __meta__ = {
 "_editor_description_": ""
 }
 
-[node name="OmniLight" type="OmniLight" parent="." index="7"]
+[node name="OmniLight" type="OmniLight" parent="." index="3"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1538, 0 )
 light_color = Color( 0.529412, 0.298039, 0, 1 )
-light_energy = 0.557048
-omni_range = 7.34506
+light_energy = 0.542814
+omni_range = 7.05557
 script = ExtResource( 6 )
 
-[node name="ThrowPath" type="Path" parent="." index="8"]
+[node name="ThrowPath" type="Path" parent="." index="4"]
 curve = SubResource( 2 )
 
-[node name="Tween" type="Tween" parent="." index="9"]
+[node name="Tween" type="Tween" parent="." index="5"]
 
-[node name="Campfire" parent="." index="10" instance=ExtResource( 7 )]
+[node name="campfire" parent="." index="6" instance=ExtResource( 2 )]
+transform = Transform( 0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0, 0, 0 )
+
+[editable path="campfire"]
