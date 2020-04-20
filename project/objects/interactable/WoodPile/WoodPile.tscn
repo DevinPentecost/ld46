@@ -17,6 +17,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.12828, 0, 0 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.404902, 0, 0 )
 
 [node name="SpotLight" parent="." index="1"]
+light_energy = 0.75
 spot_angle = 23.5
 
 [node name="CollisionShape" parent="HoverArea" index="0"]
