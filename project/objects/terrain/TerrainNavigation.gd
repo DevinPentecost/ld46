@@ -18,6 +18,7 @@ export(bool) var draw_path = true
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	#Set up the material for the line
+	$NavigationMesh.hide()
 	line_material.flags_unshaded = true
 	line_material.flags_use_point_size = true
 	line_material.albedo_color = Color.antiquewhite

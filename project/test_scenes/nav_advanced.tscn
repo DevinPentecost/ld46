@@ -1,12 +1,10 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://objects/navigation/navigation.tscn" type="PackedScene" id=1]
+[ext_resource path="res://objects/Terrain/Terrain.tscn" type="PackedScene" id=1]
 [ext_resource path="res://objects/player/Player.tscn" type="PackedScene" id=2]
 [ext_resource path="res://objects/camera/Camera.tscn" type="PackedScene" id=3]
 [ext_resource path="res://objects/camera/LookTarget.tscn" type="PackedScene" id=4]
 [ext_resource path="res://objects/interactable/Pickup/TestPickup.tscn" type="PackedScene" id=5]
-[ext_resource path="res://objects/interactable/Fire/Fire.tscn" type="PackedScene" id=6]
-[ext_resource path="res://objects/interactable/Tent/Tent.tscn" type="PackedScene" id=7]
 
 [node name="Spatial" type="Spatial"]
 
@@ -16,22 +14,26 @@
 draw_path = true
 
 [node name="Player" parent="." instance=ExtResource( 2 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5.21203, 0, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -14.6131, 0, -11.5225 )
 
 [node name="Camera" parent="." instance=ExtResource( 3 )]
-transform = Transform( 1, 0, 0, 0, 0.729888, 0.683567, 0, -0.683567, 0.729888, 0, 11.7284, 10.2983 )
+transform = Transform( 1, 0, 0, 0, 0.845224, 0.534411, 0, -0.534411, 0.845224, 5.11667, 4.01124, -0.338988 )
+look_target = NodePath("../LookTarget")
 
 [node name="LookTarget" parent="." instance=ExtResource( 4 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6364, -2.45457 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -5.80777, 2.03115, -6.81098 )
+
+[node name="Vertical Camera Path" parent="LookTarget" index="0"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+
+[node name="PathFollow" parent="LookTarget/Vertical Camera Path" index="0"]
+transform = Transform( 0.996739, 0.0732747, 0.0337187, -0.0755221, 0.700977, 0.709169, 0.0283282, -0.709406, 0.704232, 0.0844008, 7.11965, 14.9909 )
+offset = 11.9246
 
 [node name="TestPickup" parent="." instance=ExtResource( 5 )]
-
-[node name="Fire" parent="." instance=ExtResource( 6 )]
-transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 2, -5.82155, 0, -6.99234 )
-
-[node name="Tent" parent="." instance=ExtResource( 7 )]
-transform = Transform( 0.769934, 0, -0.638123, 0, 1, 0, 0.638123, 0, 0.769934, 3.82863, -0.405398, -9.43899 )
 
 [editable path="Terrain"]
 
 [editable path="Camera"]
+
+[editable path="LookTarget"]
