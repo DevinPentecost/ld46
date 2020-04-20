@@ -2,13 +2,15 @@
 
 [ext_resource path="res://objects/interactable/Interactable.tscn" type="PackedScene" id=1]
 [ext_resource path="res://objects/interactable/Fire/FireModel.tscn" type="PackedScene" id=2]
-[ext_resource path="res://objects/interactable/Fire/FireHover.tres" type="ArrayMesh" id=3]
 [ext_resource path="res://objects/interactable/Fire/Fire.gd" type="Script" id=5]
 [ext_resource path="res://objects/interactable/Fire/OmniLight.gd" type="Script" id=6]
 [ext_resource path="res://objects/interactable/Fire/campfire.tscn" type="PackedScene" id=7]
 
 [sub_resource type="BoxShape" id=1]
 extents = Vector3( 0.25, 1, 0.25 )
+
+[sub_resource type="BoxShape" id=3]
+extents = Vector3( 0.251293, 0.426073, 0.24496 )
 
 [sub_resource type="Curve3D" id=2]
 _data = {
@@ -20,16 +22,6 @@ _data = {
 "fire",
 ] instance=ExtResource( 1 )]
 script = ExtResource( 5 )
-hover_material = null
-
-[node name="CollisionShape" parent="HoverArea" index="0"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0 )
-
-[node name="HoverMesh" parent="." index="1"]
-transform = Transform( -0.0360734, -0.409283, 0.00312724, 0.00220507, -0.0196416, -0.106864, 0.0791382, -0.186015, 0.00440308, -0.0425122, 0.184621, 0.0639437 )
-visible = false
-mesh = ExtResource( 3 )
-material/0 = null
 
 [node name="DestinationArea" parent="Destinations" index="0"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.25, 0.25, 0 )
@@ -64,11 +56,15 @@ __meta__ = {
 "_editor_description_": ""
 }
 
+[node name="CollisionShape" parent="HoverArea" index="0"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0 )
+shape = SubResource( 3 )
+
 [node name="OmniLight" type="OmniLight" parent="." index="3"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1538, 0 )
 light_color = Color( 0.529412, 0.298039, 0, 1 )
-light_energy = 0.542814
-omni_range = 7.05557
+light_energy = 0.579377
+omni_range = 7.34059
 script = ExtResource( 6 )
 
 [node name="ThrowPath" type="Path" parent="." index="4"]

@@ -10,6 +10,11 @@ config_version=4
 
 _global_script_classes=[ {
 "base": "Interactable",
+"class": "Dog",
+"language": "GDScript",
+"path": "res://objects/interactable/Dog/Dog.gd"
+}, {
+"base": "Interactable",
 "class": "Fire",
 "language": "GDScript",
 "path": "res://objects/interactable/Fire/Fire.gd"
@@ -45,6 +50,7 @@ _global_script_classes=[ {
 "path": "res://objects/interactable/WoodPile/WoodPile.gd"
 } ]
 _global_script_class_icons={
+"Dog": "",
 "Fire": "",
 "Interactable": "",
 "Pickup": "",
@@ -56,7 +62,8 @@ _global_script_class_icons={
 
 [application]
 
-config/name="LD46"
+config/name="Not Quite Home"
+config/description="Keep that fire burning a little longer."
 run/main_scene="res://scene/intro_scene.tscn"
 config/icon="res://icon.png"
 

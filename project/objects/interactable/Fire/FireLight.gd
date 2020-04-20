@@ -7,8 +7,8 @@ onready var noise = NoiseTexture.new()
 onready var energyBase = 0.7
 onready var rangeBase = 7.7
 
-onready var energyRange = Vector2(self.energyBase - .1, self.energyBase + .1)
-onready var rangeRange = Vector2(self.rangeBase - 0.5, self.rangeBase + 0.5)
+onready var energyRange = Vector2(energyBase - .1, energyBase + .1)
+onready var rangeRange = Vector2(rangeBase - 0.5, rangeBase + 0.5)
 
 var x_position = 0
 var flicker_loop_time = 10

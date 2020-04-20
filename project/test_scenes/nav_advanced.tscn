@@ -28,7 +28,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -5.80777, 2.03115, -6.81098 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
 
 [node name="PathFollow" parent="LookTarget/Vertical Camera Path" index="0"]
-transform = Transform( 0.996695, 0.0717201, 0.0380706, 0.00463039, -0.518298, 0.855189, 0.0810657, -0.852185, -0.516915, 0.0844008, 7.11965, 14.9909 )
+transform = Transform( 0.996728, 0.0710884, 0.0383931, 0.0191459, -0.669489, 0.742577, 0.0784919, -0.73941, -0.668658, 0.0844008, 7.11965, 14.9909 )
 offset = 11.9246
 
 [node name="Stick" parent="." instance=ExtResource( 5 )]

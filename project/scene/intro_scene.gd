@@ -18,6 +18,7 @@ func _ready():
 
 func _on_IntroElements_start_game_pressed():
 	$Tween.interpolate_property($Camera/Sprite3D, "opacity", 0, 1, 2, Tween.TRANS_LINEAR, Tween.EASE_IN)
+	$Tween.interpolate_property($Fire/Campfire/CrispyLogs/AudioStreamPlayer3D, "unit_db", $Fire/Campfire/CrispyLogs/AudioStreamPlayer3D.unit_db, -100, 2, Tween.TRANS_CUBIC, Tween.EASE_IN)
 	$Tween.start()
 	yield($Tween, "tween_completed")
 	

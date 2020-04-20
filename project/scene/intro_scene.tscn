@@ -6,22 +6,23 @@
 [ext_resource path="res://objects/intro/black.png" type="Texture" id=4]
 [ext_resource path="res://objects/terrain/misc/distant/distant_forest.tscn" type="PackedScene" id=5]
 
-[sub_resource type="SpatialMaterial" id=2]
+[sub_resource type="SpatialMaterial" id=1]
 albedo_color = Color( 0.105882, 0.129412, 0, 1 )
 
-[sub_resource type="PlaneMesh" id=1]
-material = SubResource( 2 )
+[sub_resource type="PlaneMesh" id=2]
+material = SubResource( 1 )
 
 [node name="intro_scene" type="Spatial"]
 script = ExtResource( 3 )
 
 [node name="MeshInstance" type="MeshInstance" parent="."]
 transform = Transform( 10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0, 0 )
-mesh = SubResource( 1 )
+mesh = SubResource( 2 )
 material/0 = null
 
 [node name="Camera" type="Camera" parent="."]
 transform = Transform( 0.994098, -0.0131743, -0.107686, -0.0489579, 0.831305, -0.553656, 0.0968137, 0.55566, 0.825754, -2.05777, 0.122257, 2.11396 )
+current = true
 
 [node name="IntroElements" parent="Camera" instance=ExtResource( 2 )]
 transform = Transform( 0.997913, 0.0602735, -0.0233308, -0.0624445, 0.992247, -0.107478, 0.016673, 0.108709, 0.99394, 0.108293, -0.172319, -2.78266 )
@@ -33,6 +34,26 @@ texture = ExtResource( 4 )
 
 [node name="Fire" parent="." instance=ExtResource( 1 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.61833, -0.0118041, -0.29634 )
+
+[node name="Destinations" parent="Fire" index="0"]
+visible = false
+
+[node name="SpotLight" parent="Fire" index="1"]
+visible = false
+
+[node name="HoverArea" parent="Fire" index="2"]
+visible = false
+
+[node name="OmniLight" parent="Fire" index="3"]
+light_energy = 0.675287
+omni_range = 7.38382
+
+[node name="FireLight" parent="Fire/Campfire" index="0"]
+light_energy = 0.500643
+omni_range = 6.9649
+
+[node name="crispylight" parent="Fire/Campfire/CrispyLogs" index="2"]
+light_color = Color( 0.697442, 0.0923238, 0, 1 )
 
 [node name="Tween" type="Tween" parent="."]
 
@@ -49,3 +70,9 @@ transform = Transform( -0.738751, -0.0369402, -0.672966, -0.0331134, 0.99928, -0
 wait_time = 0.5
 [connection signal="start_game_pressed" from="Camera/IntroElements" to="." method="_on_IntroElements_start_game_pressed"]
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
+
+[editable path="Fire"]
+
+[editable path="Fire/Campfire"]
+
+[editable path="Fire/Campfire/CrispyLogs"]

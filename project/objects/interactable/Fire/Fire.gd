@@ -1,10 +1,7 @@
 extends Interactable
 class_name Fire
 
-const THROW_TIME = 0.25
-
-func _ready():
-	._ready()
+const THROW_TIME = 0.4
 
 func throw(node : Pickup):
 	

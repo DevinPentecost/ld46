@@ -2,35 +2,26 @@
 
 [ext_resource path="res://objects/interactable/Interactable.tscn" type="PackedScene" id=1]
 [ext_resource path="res://objects/interactable/Dog/DogModel.tscn" type="PackedScene" id=2]
+[ext_resource path="res://objects/interactable/Dog/Dog.gd" type="Script" id=3]
 
-[sub_resource type="GDScript" id=1]
-script/source = "extends Interactable
-
-func _interact(player):
-	
-	#Play the happy dog animation
-	$dog/AnimationPlayer.play(\"happy\")
-	yield($dog/AnimationPlayer, \"animation_finished\")
-	$dog/AnimationPlayer.play(\"idle\")
-"
-
-[sub_resource type="BoxShape" id=2]
+[sub_resource type="BoxShape" id=1]
 extents = Vector3( 0.25, 1, 0.25 )
 
-[sub_resource type="BoxShape" id=3]
+[sub_resource type="BoxShape" id=2]
 extents = Vector3( 0.597232, 0.156727, 0.39425 )
 
 [node name="Dog" instance=ExtResource( 1 )]
-script = SubResource( 1 )
+script = ExtResource( 3 )
 
 [node name="DestinationArea" parent="Destinations" index="0"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.64543, 0, 0.863277 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.272438, 0, 1.00161 )
 
 [node name="DestinationArea2" type="Area" parent="Destinations" index="1"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.25846, 0.211609, -1.40639 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.276676, 0.211609, -1.40639 )
 
 [node name="CollisionShape" type="CollisionShape" parent="Destinations/DestinationArea2" index="0"]
-shape = SubResource( 2 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.335263, 0, 0.381637 )
+shape = SubResource( 1 )
 
 [node name="SpotLight" parent="." index="1"]
 light_energy = 1.09
@@ -40,7 +31,7 @@ spot_angle = 22.5
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.48869, -0.192126 )
 
 [node name="CollisionShape" parent="HoverArea" index="0"]
-shape = SubResource( 3 )
+shape = SubResource( 2 )
 
 [node name="dog" parent="." index="3" instance=ExtResource( 2 )]
 

@@ -1,6 +1,9 @@
 extends Spatial
 class_name Player
 
+export(float) var pickup_lock_time
+export(float) var drop_unlock_time
+
 #Some player constants
 const TURN_SPEED = 4 # Radians per second
 const WALK_SPEED = 4 # Units per second
@@ -12,6 +15,7 @@ onready var previous_position : Vector3 = self.transform.origin
 var walk_path = []
 var target_interactable : Interactable
 var carrying : Pickup = null
+var busy = false
 
 #Get relevant nodes
 onready var navigation = get_tree().get_nodes_in_group("navigation")[0]
@@ -32,8 +36,18 @@ func walk_to_point(point : Vector3):
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	
+	#Are we busy doing something else?
+	if busy:
+		return
+	
 	#Is there anything left of the path?
 	if walk_path.size() > 1:
+		
+		#Play walking
+		if carrying:
+			$player/AnimationPlayer.play("holdwalk")
+		else:
+			$player/AnimationPlayer.play("walk")
 		
 		#Distance to walk
 		var walk_distance = delta * WALK_SPEED
@@ -77,51 +91,88 @@ func _process(delta):
 		if walk_path.size() < 2:
 			walk_path.clear()
 	
+	else:
+		
+		#Doing nothing
+		#Play walking
+		if carrying:
+			$player/AnimationPlayer.play("holdidle")
+		else:
+			$player/AnimationPlayer.play("idle")
+	
 
 func _pickup(target : Pickup):
 	
-	#We need to switch our state to playing the correct animations
+	#Play the animation
+	busy = true
+	$player/AnimationPlayer.play("holdpickup")
+	$Timer.start(pickup_lock_time)
+	yield($Timer, "timeout")
+	
+	#Attatch
 	carrying = target
 	target.active = false
-	target.picked_up = false
+	target.picked_up = true
 	
 	# Re-parent the node
 	target.transform.origin = Vector3()
 	var parent = target.get_parent()
 	if parent: parent.remove_child(target)
-	$CarryPoint.add_child(target)
+	$player/player/Skeleton/BoneAttachment/CarryPoint.add_child(target)
+	
+	#Now wait for the animation to end
+	yield($player/AnimationPlayer,"animation_finished")
+	busy = false
+
+func _pickup_wood(wood_pile):
+	
+	
+	#Play the animation
+	busy = true
+	global_transform = global_transform.looking_at(wood_pile.global_transform.origin, Vector3.UP)
+	$player/AnimationPlayer.play("holdpickup")
+	$Timer.start(pickup_lock_time)
+	yield($Timer, "timeout")
+	
+	#Attach
+	target_interactable._interact(self)
+	
+	#Now wait for the animation to end
+	yield($player/AnimationPlayer,"animation_finished")
+	busy = false
 
 func _throw_fire(fire):
 	
 	#Make sure we are carrying something
 	if carrying:
 		
-		#Face the target
+		busy = true
+		global_transform = global_transform.looking_at(fire.global_transform.origin, Vector3.UP)
+		
+		#Play the animation
+		busy = true
+		$player/AnimationPlayer.play("holddrop")
+		$Timer.start(drop_unlock_time)
+		yield($Timer, "timeout")
 		
 		#Throw it
 		fire.throw(carrying)
 		
 		#Stop carrying it
 		carrying = null
-
-func _throw_water(water):
-	
-	#Make sure we are carrying something
-	if carrying:
 		
-		#Face the target
-		
-		#Throw it
-		water.throw(carrying)
-		
-		#Stop carrying it
-		carrying = null
+		#Now wait for the animation to end
+		yield($player/AnimationPlayer,"animation_finished")
+		busy = false
 
 func _on_Area_area_entered(area):
 	
 	#We touched something...
 	if target_interactable and target_interactable.active and target_interactable.has_destination(area):
 		print("Reached what we wanted to interact with!")
+		
+		#No longer walking somewhere
+		self.walk_path = []
 		
 		# Is this a pickup?
 		if target_interactable is Pickup:
@@ -142,9 +193,27 @@ func _on_Area_area_entered(area):
 		elif target_interactable is WoodPile:
 			print("At wood!")
 			if not carrying:
-				target_interactable._interact(self)
+				_pickup_wood(target_interactable)
+		
+		#Is it the dog?
+		elif target_interactable is Dog:
+			print("Petting the dog!")
+			_pet_dog(target_interactable)
 		
 		#Generic fallback
 		else:
 			print("I reached something")
 			target_interactable._interact(self)
+
+func _pet_dog(dog : Dog):
+	
+	#Face the dog
+	busy = true
+	global_transform = global_transform.looking_at(dog.global_transform.origin, Vector3.UP)
+	
+	#Play the animation
+	dog._interact(self)
+	$player/AnimationPlayer.play("holdpickup")
+	yield($player/AnimationPlayer, "animation_finished")
+	$player/AnimationPlayer.play("idle")
+	busy = false
