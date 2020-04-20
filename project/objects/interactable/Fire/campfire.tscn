@@ -58,6 +58,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.37146, 4.16809 )
 transform = Transform( 0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0.33, 0.101199, -0.334001 )
 fire_normal = Color( 0.666667, 0, 0, 1 )
 fire_crispy = Color( 1, 1, 0, 1 )
+fire_brightness = 2.0
 
 [node name="crispylight" parent="CrispyLogs" index="2"]
 light_color = Color( 0.753011, 0.259031, 0, 1 )
