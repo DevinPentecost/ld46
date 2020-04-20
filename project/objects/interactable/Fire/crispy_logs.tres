@@ -1,0 +1,61 @@
+[gd_resource type="ShaderMaterial" load_steps=4 format=2]
+
+[ext_resource path="res://objects/interactable/Fire/firetex.png" type="Texture" id=1]
+[ext_resource path="res://objects/interactable/Fire/firetex_crispy.png" type="Texture" id=2]
+
+[sub_resource type="Shader" id=1]
+code = "shader_type spatial;
+render_mode unshaded;
+
+uniform sampler2D texture_base;
+uniform sampler2D texture_crispy;
+
+uniform vec4 color_base : hint_color;
+uniform vec4 color_dark : hint_color;
+uniform vec4 color_crispy : hint_color;
+uniform float crispyness = 1.0;
+
+const float crispy_thresh = 0.9;
+
+void fragment()
+{
+	// Build the base coloring
+	float baseNoise = texture(texture_base, UV).r;
+	vec4 color = mix(color_base, color_dark, baseNoise);
+	
+	// Now add the crispy brightness
+	float crispyNoise = texture(texture_crispy, UV).r;
+
+	vec4 crispycolor = mix(vec4(0,0,0,0), color_crispy, crispyNoise);
+
+	color = color + (crispycolor * crispyness);
+	
+	ALBEDO = color.rgb;
+}
+
+
+
+//void fragment2()
+//{
+//	//float noise = texture(noise_texture, UV - TIME * speed).r;
+//	float noise = texture(noise_texture, UV).r;
+//	//float noise_white = texture(noise_texture, UV - TIME * speed * 10.0).g;
+//	float noise_white = texture(noise_texture, UV).g;
+//	
+//	float whiteStep = step(white_thresh, noise_white);
+//	vec4 whiteColor = mix(vec4(whiteStep, whiteStep, whiteStep, whiteStep), color_fast, noise_white);
+//	
+//	vec4 color = mix(color_primary * brightness, color_secondary, noise);
+//	color = mix(whiteColor * 0.9 * brightness, color, noise_white);
+//	
+//	ALBEDO = color.rgb;
+//}"
+
+[resource]
+shader = SubResource( 1 )
+shader_param/color_base = Color( 0.666667, 0, 0, 1 )
+shader_param/color_dark = Color( 0, 0, 0, 1 )
+shader_param/color_crispy = Color( 1, 1, 0, 1 )
+shader_param/crispyness = -0.107531
+shader_param/texture_base = ExtResource( 1 )
+shader_param/texture_crispy = ExtResource( 2 )
