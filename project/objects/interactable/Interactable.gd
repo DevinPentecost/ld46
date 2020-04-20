@@ -1,19 +1,13 @@
 extends Spatial
 class_name Interactable
 
-export(SpatialMaterial) var hover_material
-
 var active = true
 var hovered = false
 
 func _ready():
-	$HoverMesh.hide()
-	
-	#Did we get a material for the mesh?
-	if hover_material:
-		$HoverMesh.material_override = hover_material
+	$SpotLight.hide()
 
-func _interact():
+func _interact(player):
 	#Do something when interacted with
 	pass
 
@@ -49,10 +43,10 @@ func has_destination(area : Area):
 func _on_HoverArea_mouse_entered():
 	hovered = true
 	if active:
-		$HoverMesh.show()
+		$SpotLight.show()
 	else:
-		$HoverMesh.hide()
+		$SpotLight.hide()
 
 func _on_HoverArea_mouse_exited():
 	hovered = false
-	$HoverMesh.hide()
+	$SpotLight.hide()

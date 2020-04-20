@@ -86,10 +86,12 @@ func _pickup(target : Pickup):
 	target.picked_up = false
 	
 	# Re-parent the node
-	target.get_parent().remove_child(target)
+	target.transform.origin = Vector3()
+	var parent = target.get_parent()
+	if parent: parent.remove_child(target)
 	$CarryPoint.add_child(target)
 
-func _throw_fire(fire : Fire):
+func _throw_fire(fire):
 	
 	#Make sure we are carrying something
 	if carrying:
@@ -101,9 +103,7 @@ func _throw_fire(fire : Fire):
 		
 		#Stop carrying it
 		carrying = null
-		
-		
-		
+
 func _throw_water(water):
 	
 	#Make sure we are carrying something
@@ -126,9 +126,10 @@ func _on_Area_area_entered(area):
 		# Is this a pickup?
 		if target_interactable is Pickup:
 			print("I want to pick it up")
-			var target = target_interactable
-			target_interactable = null
-			_pickup(target)
+			if not carrying:
+				var target = target_interactable
+				target_interactable = null
+				_pickup(target)
 		
 		#Is it a fire?
 		elif target_interactable is Fire:
@@ -136,8 +137,14 @@ func _on_Area_area_entered(area):
 			if carrying:
 				print("Throwing something in")
 				_throw_fire(target_interactable)
-				
+		
+		#Is it a woodpile?
+		elif target_interactable is WoodPile:
+			print("At wood!")
+			if not carrying:
+				target_interactable._interact(self)
+		
 		#Generic fallback
 		else:
 			print("I reached something")
-			target_interactable._interact()
+			target_interactable._interact(self)

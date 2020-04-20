@@ -28,12 +28,30 @@ _global_script_classes=[ {
 "class": "Player",
 "language": "GDScript",
 "path": "res://objects/player/Player.gd"
+}, {
+"base": "Pickup",
+"class": "Stick",
+"language": "GDScript",
+"path": "res://objects/interactable/Pickup/Wood/Stick.gd"
+}, {
+"base": "Interactable",
+"class": "Tent",
+"language": "GDScript",
+"path": "res://objects/interactable/Tent/Tent.gd"
+}, {
+"base": "Interactable",
+"class": "WoodPile",
+"language": "GDScript",
+"path": "res://objects/interactable/WoodPile/WoodPile.gd"
 } ]
 _global_script_class_icons={
 "Fire": "",
 "Interactable": "",
 "Pickup": "",
-"Player": ""
+"Player": "",
+"Stick": "",
+"Tent": "",
+"WoodPile": ""
 }
 
 [application]
