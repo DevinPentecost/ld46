@@ -45,16 +45,16 @@ visible = false
 visible = false
 
 [node name="OmniLight" parent="Fire" index="3"]
-light_energy = 0.675287
-omni_range = 7.38382
+light_energy = 0.543148
+omni_range = 7.01011
 
 [node name="FireLight" parent="Fire/Campfire" index="0"]
-light_energy = 0.500643
-omni_range = 6.9649
+light_energy = 0.478273
+omni_range = 6.82694
 
 [node name="crispylight" parent="Fire/Campfire/CrispyLogs" index="2"]
-light_color = Color( 0.697442, 0.0923238, 0, 1 )
-light_energy = 2.10432
+light_color = Color( 1.31479, 1.94436, 0, 1 )
+light_energy = 1.94436
 
 [node name="Tween" type="Tween" parent="."]
 
