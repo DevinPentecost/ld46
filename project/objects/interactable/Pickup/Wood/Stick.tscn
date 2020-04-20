@@ -2,17 +2,17 @@
 
 [ext_resource path="res://objects/interactable/Pickup/Pickup.tscn" type="PackedScene" id=1]
 [ext_resource path="res://objects/interactable/Pickup/Wood/Stick.gd" type="Script" id=2]
-[ext_resource path="res://objects/interactable/Pickup/Wood/log.tscn" type="PackedScene" id=3]
+[ext_resource path="res://objects/interactable/Pickup/Wood/Log.tscn" type="PackedScene" id=3]
 
 [sub_resource type="BoxShape" id=1]
-extents = Vector3( 0.453354, 0.374495, 0.175092 )
+extents = Vector3( 0.685385, 0.374495, 0.467694 )
 
 [node name="Stick" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
 
 [node name="SpotLight" parent="." index="1"]
-light_energy = 1.59
-spot_angle = 11.3
+light_energy = 0.5
+spot_angle = 17.2104
 
 [node name="CollisionShape" parent="HoverArea" index="0"]
 shape = SubResource( 1 )

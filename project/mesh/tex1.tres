@@ -4,6 +4,10 @@
 
 [resource]
 resource_name = "tex1"
+params_diffuse_mode = 4
 params_cull_mode = 2
 albedo_texture = ExtResource( 1 )
+metallic_specular = 0.0
 roughness = 0.0764706
+normal_enabled = true
+normal_scale = -0.38

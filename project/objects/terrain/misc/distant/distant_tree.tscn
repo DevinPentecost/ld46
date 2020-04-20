@@ -1,32 +1,7 @@
 [gd_scene load_steps=2 format=2]
 
-[ext_resource path="res://.import/Tree_01.obj-c11991626cb581091be51342b44e3158.mesh" type="ArrayMesh" id=1]
+[ext_resource path="res://mesh/tree3.tscn" type="PackedScene" id=1]
 
 [node name="Spatial" type="Spatial"]
 
-[node name="MeshInstance" type="MeshInstance" parent="."]
-transform = Transform( 5, 0, 0, 0, 10, 0, 0, 0, 5, 0, 4.99171, 0 )
-mesh = ExtResource( 1 )
-material/0 = null
-material/1 = null
-material/2 = null
-material/3 = null
-material/4 = null
-
-[node name="MeshInstance2" type="MeshInstance" parent="."]
-transform = Transform( 2.5, 0, 0, 0, 9.5, 0, 0, 0, 5, -6.85562, 4.99171, 3.60326 )
-mesh = ExtResource( 1 )
-material/0 = null
-material/1 = null
-material/2 = null
-material/3 = null
-material/4 = null
-
-[node name="MeshInstance3" type="MeshInstance" parent="."]
-transform = Transform( 10, 0, 0, 0, 5, 0, 0, 0, 5, -6.33037, 4.99171, 0.34833 )
-mesh = ExtResource( 1 )
-material/0 = null
-material/1 = null
-material/2 = null
-material/3 = null
-material/4 = null
+[node name="tree3" parent="." instance=ExtResource( 1 )]

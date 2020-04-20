@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://mesh/player.tres" type="Material" id=1]
+[ext_resource path="res://mesh/tex1.tres" type="Material" id=2]
+[ext_resource path="res://mesh/guitarplayer.glb" type="PackedScene" id=3]
+
+[node name="guitarplayer" instance=ExtResource( 3 )]
+
+[node name="guitar" parent="camper" index="0"]
+transform = Transform( 1.1869, 0.0737084, -0.0534695, -0.0736337, 1.18811, 0.00331717, 0.0535723, 0, 1.18918, -0.853931, -7.35624, -0.389799 )
+material/0 = ExtResource( 2 )
+
+[node name="camper_mesh" parent="camper/Skeleton" index="0"]
+material/0 = ExtResource( 1 )
+
+[node name="AnimationPlayer" parent="." index="1"]
+pause_mode = 2
+autoplay = "play"

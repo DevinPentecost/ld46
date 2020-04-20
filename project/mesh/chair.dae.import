@@ -12,12 +12,12 @@ dest_files=[ "res://.import/chair.dae-d49d73fdb36ffa320cc86467134c5625.scn" ]
 [params]
 
 nodes/root_type="Spatial"
-nodes/root_name="Chair"
-nodes/root_scale=0.25
+nodes/root_name="Scene Root"
+nodes/root_scale=1.0
 nodes/custom_script=""
 nodes/storage=0
 materials/location=1
-materials/storage=0
+materials/storage=1
 materials/keep_on_reimport=true
 meshes/compress=true
 meshes/ensure_tangents=true
