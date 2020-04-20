@@ -57,8 +57,16 @@ _global_script_class_icons={
 [application]
 
 config/name="LD46"
-run/main_scene="res://scene/main_scene.tscn"
+run/main_scene="res://scene/intro_scene.tscn"
 config/icon="res://icon.png"
+
+[display]
+
+window/size/width=640
+window/size/height=480
+window/size/test_width=1280
+window/size/test_height=960
+window/stretch/mode="viewport"
 
 [rendering]
 

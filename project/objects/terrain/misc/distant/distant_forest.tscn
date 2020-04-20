@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://objects/terrain/misc/distant/distant_tree.tscn" type="PackedScene" id=2]
+
+[sub_resource type="SpatialMaterial" id=1]
+albedo_color = Color( 0.0627451, 0.129412, 0, 1 )
+
+[sub_resource type="PlaneMesh" id=2]
+material = SubResource( 1 )
+size = Vector2( 50, 50 )
+
+[node name="Spatial" type="Spatial"]
+
+[node name="MeshInstance" type="MeshInstance" parent="."]
+mesh = SubResource( 2 )
+material/0 = null
+
+[node name="Spatial" parent="MeshInstance" instance=ExtResource( 2 )]
+
+[node name="Spatial2" parent="MeshInstance" instance=ExtResource( 2 )]
+transform = Transform( 0.727629, 0, 0.685971, -0.204105, 0.954709, 0.2165, -0.654902, -0.297542, 0.694674, 11.88, 0, 0 )
+
+[node name="Spatial3" parent="MeshInstance" instance=ExtResource( 2 )]
+transform = Transform( -0.491086, 0, 0.871111, 0, 1, 0, -0.871111, 0, -0.491086, -11.3692, 0, 0 )

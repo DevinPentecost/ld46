@@ -18,6 +18,8 @@ func _ready():
 	
 	set_process(true)
 	set_process_input(true)
+	$Tween.interpolate_property($Sprite3D, "opacity", 1, 0, 2, Tween.TRANS_LINEAR, Tween.EASE_OUT)
+	$Tween.start()
 
 func _process(delta):
 	
