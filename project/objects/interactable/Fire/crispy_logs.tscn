@@ -47,5 +47,6 @@ omni_attenuation = 2.0
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource( 4 )
-unit_db = 1.0
+unit_db = 5.0
+unit_size = 3.0
 autoplay = true

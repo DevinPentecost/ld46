@@ -22,5 +22,6 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
 transform = Transform( -0.224767, -1.35431, -0.0621303, -0.00917481, 0.362673, -0.377948, 0.314904, -0.956094, -0.055358, 0.063, 0.931, 0.03 )
 
 [node name="HoverMesh" type="MeshInstance" parent="fire" index="0"]
+visible = false
 mesh = SubResource( 1 )
 material/0 = null

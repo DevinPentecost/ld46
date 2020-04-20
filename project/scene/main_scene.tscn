@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://scene/Day 7.ogg" type="AudioStream" id=1]
 [ext_resource path="res://objects/Terrain/Terrain.tscn" type="PackedScene" id=2]
@@ -6,6 +6,9 @@
 [ext_resource path="res://objects/player/Player.tscn" type="PackedScene" id=4]
 [ext_resource path="res://objects/camera/Camera.tscn" type="PackedScene" id=5]
 [ext_resource path="res://objects/camera/LookTarget.tscn" type="PackedScene" id=6]
+[ext_resource path="res://objects/intro/black.png" type="Texture" id=7]
+[ext_resource path="res://objects/terrain/misc/distant/distant_campsite.tscn" type="PackedScene" id=8]
+[ext_resource path="res://objects/terrain/misc/distant/distant_forest.tscn" type="PackedScene" id=9]
 
 [node name="Game" type="Spatial"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0626869, 1.90735e-06, -0.0451107 )
@@ -14,7 +17,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0626869, 1.90735e-06, -0.045
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.341584, 0 )
 
 [node name="lakesurface" parent="." instance=ExtResource( 3 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 12.5558 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 24.5115 )
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource( 1 )
@@ -27,5 +30,30 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.46919, 0, 2.36104 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.63776, 7.8073 )
 look_target = NodePath("../LookTarget")
 
+[node name="Tween" type="Tween" parent="Camera"]
+
+[node name="Sprite3D" type="Sprite3D" parent="Camera"]
+transform = Transform( 50, 0, 0, 0, 50, 0, 0, 0, 50, 0, 0, -1.58917 )
+modulate = Color( 0, 0, 0, 1 )
+texture = ExtResource( 7 )
+
 [node name="LookTarget" parent="." instance=ExtResource( 6 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.9243, -2.40675 )
+
+[node name="Spatial" parent="." instance=ExtResource( 8 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 68.3932 )
+
+[node name="Spatial2" parent="." instance=ExtResource( 8 )]
+transform = Transform( 0.626284, -0.128449, 0.76894, 0.0470567, 0.990763, 0.127178, -0.778174, -0.0434656, 0.626543, 40.3869, -1.36424e-12, 53.269 )
+
+[node name="Spatial3" parent="." instance=ExtResource( 8 )]
+transform = Transform( -0.250367, 0.0849648, 0.964416, -0.0728, 0.991669, -0.106265, -0.96541, -0.0968147, -0.242096, -43.4402, -1.36424e-12, 51.3492 )
+
+[node name="Spatial4" parent="." instance=ExtResource( 8 )]
+transform = Transform( -0.250243, -0.0905631, 0.963938, -0.206249, 0.977749, 0.0383173, -0.94596, -0.189223, -0.263353, 24.9461, -1.36424e-12, 73.7823 )
+
+[node name="Spatial5" parent="." instance=ExtResource( 9 )]
+transform = Transform( 0.440251, -0.0839345, 0.893943, 0.067558, 0.995895, 0.060236, -0.89533, 0.033874, 0.444114, 49.7982, -1.36424e-12, 24.3112 )
+
+[node name="Spatial6" parent="." instance=ExtResource( 9 )]
+transform = Transform( -0.908029, 0.0545145, -0.415345, 0.0495745, 0.998513, 0.022676, 0.415963, 0, -0.909381, -52.524, 3.8147e-06, 25.9403 )

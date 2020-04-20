@@ -1,7 +1,6 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://objects/interactable/Fire/FireLight.gd" type="Script" id=1]
-[ext_resource path="res://.import/Campfire_01.obj-3981d2bbea0dd5955449952a8993cf6f.mesh" type="ArrayMesh" id=2]
 [ext_resource path="res://objects/interactable/Fire/crispy_logs.tscn" type="PackedScene" id=3]
 [ext_resource path="res://objects/interactable/Fire/campfire.gd" type="Script" id=4]
 
@@ -18,18 +17,6 @@ material = SubResource( 1 )
 
 [node name="Campfire" type="MeshInstance"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.333, 0, 0.333 )
-mesh = ExtResource( 2 )
-material/0 = null
-material/1 = null
-material/2 = null
-material/3 = null
-material/4 = null
-material/5 = null
-material/6 = null
-material/7 = null
-material/8 = null
-material/9 = null
-material/10 = null
 script = ExtResource( 4 )
 
 [node name="FireLight" type="OmniLight" parent="."]

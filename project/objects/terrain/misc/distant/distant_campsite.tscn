@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://objects/interactable/Fire/campfire.tscn" type="PackedScene" id=1]
+[ext_resource path="res://objects/terrain/misc/distant/distant_forest.tscn" type="PackedScene" id=2]
+
+[node name="Spatial" type="Spatial"]
+
+[node name="Spatial" parent="." instance=ExtResource( 2 )]
+
+[node name="Campfire" parent="Spatial" instance=ExtResource( 1 )]
+transform = Transform( 1.66, 0, 0, 0, 1.66, 0, 0, 0, 1.66, -0.333, 0, 0.333 )
