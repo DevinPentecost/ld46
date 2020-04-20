@@ -27,7 +27,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6364, -2.45457 )
 [node name="TestPickup" parent="." instance=ExtResource( 5 )]
 
 [node name="Fire" parent="." instance=ExtResource( 6 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -5.82155, 0, -6.99234 )
+transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 2, -5.82155, 0, -6.99234 )
 
 [node name="Tent" parent="." instance=ExtResource( 7 )]
 transform = Transform( 0.769934, 0, -0.638123, 0, 1, 0, 0.638123, 0, 0.769934, 3.82863, -0.405398, -9.43899 )
