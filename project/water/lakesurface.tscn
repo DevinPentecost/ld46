@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://water/lakesurface.gd" type="Script" id=1]
 [ext_resource path="res://water/noiseTexture.png" type="Texture" id=2]
@@ -85,8 +85,11 @@ void vertex() {
 	NORMAL = cross(TANGENT, BINORMAL);
 }"
 
-[sub_resource type="ViewportTexture" id=2]
-viewport_path = NodePath("MeshInstance/Viewport")
+[sub_resource type="Gradient" id=6]
+colors = PoolColorArray( 0.0392157, 0, 0.117647, 1, 0, 0.0470588, 0.0823529, 1 )
+
+[sub_resource type="GradientTexture" id=7]
+gradient = SubResource( 6 )
 
 [sub_resource type="ShaderMaterial" id=3]
 resource_local_to_scene = true
@@ -97,7 +100,7 @@ shader_param/time_factor = Vector2( 2, 3 )
 shader_param/disturb_location = Vector2( 4, 4 )
 shader_param/disturb_magnitude = 0.2
 shader_param/disturb_freq = 3.0
-shader_param/refl_tx = SubResource( 2 )
+shader_param/refl_tx = SubResource( 7 )
 shader_param/noise_tx = ExtResource( 2 )
 
 [sub_resource type="PlaneMesh" id=4]
