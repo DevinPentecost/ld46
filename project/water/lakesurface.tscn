@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://water/lakesurface.gd" type="Script" id=1]
 [ext_resource path="res://water/noiseTexture.png" type="Texture" id=2]
@@ -85,13 +85,13 @@ void vertex() {
 	NORMAL = cross(TANGENT, BINORMAL);
 }"
 
-[sub_resource type="Gradient" id=6]
+[sub_resource type="Gradient" id=2]
 colors = PoolColorArray( 0.0392157, 0, 0.117647, 1, 0, 0.0470588, 0.0823529, 1 )
 
-[sub_resource type="GradientTexture" id=7]
-gradient = SubResource( 6 )
+[sub_resource type="GradientTexture" id=3]
+gradient = SubResource( 2 )
 
-[sub_resource type="ShaderMaterial" id=3]
+[sub_resource type="ShaderMaterial" id=4]
 resource_local_to_scene = true
 shader = SubResource( 1 )
 shader_param/wave_amp = Vector2( 0.04, 0.05 )
@@ -100,23 +100,30 @@ shader_param/time_factor = Vector2( 2, 3 )
 shader_param/disturb_location = Vector2( 4, 4 )
 shader_param/disturb_magnitude = 0.2
 shader_param/disturb_freq = 3.0
-shader_param/refl_tx = SubResource( 7 )
+shader_param/refl_tx = SubResource( 3 )
 shader_param/noise_tx = ExtResource( 2 )
 
-[sub_resource type="PlaneMesh" id=4]
+[sub_resource type="PlaneMesh" id=5]
 resource_local_to_scene = true
-material = SubResource( 3 )
+material = SubResource( 4 )
 size = Vector2( 60, 40 )
 subdivide_width = 64
 subdivide_depth = 64
 
-[sub_resource type="Environment" id=5]
+[sub_resource type="SpatialMaterial" id=6]
+albedo_color = Color( 0.0156863, 0.0784314, 0.156863, 1 )
+
+[sub_resource type="PlaneMesh" id=7]
+material = SubResource( 6 )
+size = Vector2( 60, 40 )
+
+[sub_resource type="Environment" id=8]
 background_mode = 2
 
 [node name="lakesurface" type="Spatial"]
 
 [node name="MeshInstance" type="MeshInstance" parent="."]
-mesh = SubResource( 4 )
+mesh = SubResource( 5 )
 material/0 = null
 script = ExtResource( 1 )
 real_camera = NodePath("../RealCamera")
@@ -131,9 +138,13 @@ current = true
 [node name="DummyCam" type="Spatial" parent="MeshInstance"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.59425, 0 )
 
+[node name="MeshInstance" type="MeshInstance" parent="MeshInstance"]
+mesh = SubResource( 7 )
+material/0 = null
+
 [node name="RealCamera" type="Camera" parent="."]
 transform = Transform( 1, 0, 0, 0, 0.857886, 0.513841, 0, -0.513841, 0.857886, -1.58412, 4.92431, 7.17466 )
-environment = SubResource( 5 )
+environment = SubResource( 8 )
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource( 3 )

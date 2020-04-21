@@ -2,7 +2,7 @@
 
 [ext_resource path="res://objects/interactable/WoodPile/WoodPile.gd" type="Script" id=1]
 [ext_resource path="res://objects/interactable/Interactable.tscn" type="PackedScene" id=2]
-[ext_resource path="res://objects/interactable/Pickup/Wood/log.tscn" type="PackedScene" id=3]
+[ext_resource path="res://objects/interactable/Pickup/Wood/Log.tscn" type="PackedScene" id=3]
 
 [sub_resource type="BoxShape" id=1]
 extents = Vector3( 0.486137, 0.6233, 0.502408 )
